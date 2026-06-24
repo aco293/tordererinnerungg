@@ -1,18 +1,29 @@
 import { Card } from "@/components/ui/Card";
-import type { LibraryTopic } from "@/lib/content/library";
 
 /**
- * Karte für ein einzelnes Thema der Lichtbibliothek.
+ * Minimale Datenform für eine Themenkarte. Bewusst strukturell (nicht an
+ * `LibraryTopic` gebunden), damit auch Raum-Themen mit eigenem Status
+ * (z. B. „In Vorbereitung“) dieselbe Karte wiederverwenden können.
+ */
+export type TopicCardData = {
+  title: string;
+  category: string;
+  excerpt: string;
+  status: string;
+};
+
+/**
+ * Karte für ein einzelnes Thema (Lichtbibliothek und Raum-Themen).
  *
- * Die Detailseite (`topic.href`) existiert in dieser Phase noch nicht – der
- * Status „geplant“ signalisiert dies, und „Thema öffnen“ ist daher bewusst
- * eine ruhige Platzhalter-Affordanz statt eines toten Links.
+ * Die Detailseite existiert in dieser Phase noch nicht – der Status
+ * signalisiert dies, und „Thema öffnen“ ist daher bewusst eine ruhige
+ * Platzhalter-Affordanz statt eines toten Links.
  */
 export function LibraryTopicCard({
   topic,
   headingLevel: Heading = "h4",
 }: {
-  topic: LibraryTopic;
+  topic: TopicCardData;
   /** Überschriftenebene je nach umgebender Heading-Hierarchie. */
   headingLevel?: "h3" | "h4";
 }) {

@@ -9,7 +9,7 @@ type Params = { slug: string };
 
 // Räume mit eigener, vollständig gestalteter Route. Diese werden hier nicht
 // generiert, da ihre statische Route Vorrang vor der dynamischen [slug] hat.
-const CUSTOM_REALM_ROUTES = new Set<string>(["bewusstsein"]);
+const CUSTOM_REALM_ROUTES = new Set<string>(["bewusstsein", "frequenz"]);
 
 // Erzeugt die übrigen Raumseiten statisch (frequenz, erde-kosmos, …).
 export function generateStaticParams(): Params[] {
