@@ -13,6 +13,7 @@ const CUSTOM_REALM_ROUTES = new Set<string>([
   "bewusstsein",
   "frequenz",
   "symbole",
+  "erde-kosmos",
 ]);
 
 // Erzeugt die übrigen Raumseiten statisch (frequenz, erde-kosmos, …).
