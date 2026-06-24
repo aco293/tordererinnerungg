@@ -14,6 +14,7 @@ const CUSTOM_REALM_ROUTES = new Set<string>([
   "frequenz",
   "symbole",
   "erde-kosmos",
+  "astralreisen",
 ]);
 
 // Erzeugt die übrigen Raumseiten statisch (frequenz, erde-kosmos, …).
