@@ -7,9 +7,15 @@ import { getRealm, realms } from "@/lib/content/realms";
 
 type Params = { slug: string };
 
-// Erzeugt alle Raumseiten statisch (bewusstsein, frequenz, …).
+// Räume mit eigener, vollständig gestalteter Route. Diese werden hier nicht
+// generiert, da ihre statische Route Vorrang vor der dynamischen [slug] hat.
+const CUSTOM_REALM_ROUTES = new Set<string>(["bewusstsein"]);
+
+// Erzeugt die übrigen Raumseiten statisch (frequenz, erde-kosmos, …).
 export function generateStaticParams(): Params[] {
-  return realms.map((realm) => ({ slug: realm.slug }));
+  return realms
+    .filter((realm) => !CUSTOM_REALM_ROUTES.has(realm.slug))
+    .map((realm) => ({ slug: realm.slug }));
 }
 
 export async function generateMetadata({
