@@ -112,7 +112,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Bewusstsein",
     excerpt: "Das Gewahrsein, in dem jede Erfahrung erscheint.",
-    status: "geplant",
+    status: "veröffentlicht",
     href: "/lichtbibliothek/was-ist-bewusstsein",
   },
   {
