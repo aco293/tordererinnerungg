@@ -121,7 +121,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Bewusstsein",
     excerpt: "Wer schaut, wenn du nach innen schaust?",
-    status: "geplant",
+    status: "veröffentlicht",
     href: "/lichtbibliothek/das-auge-des-beobachters",
   },
   {
