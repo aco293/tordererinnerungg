@@ -23,7 +23,7 @@ export type LibraryCategory = {
 
 export type TopicCycle = "Grundlagen" | "Erinnerung" | "Erweiterte Räume";
 
-export type TopicStatus = "geplant";
+export type TopicStatus = "geplant" | "veröffentlicht";
 
 export type LibraryTopic = {
   id: string;
@@ -103,7 +103,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Bewusstsein",
     excerpt: "Eine erste Annäherung an die Frage hinter allen Fragen.",
-    status: "geplant",
+    status: "veröffentlicht",
     href: "/lichtbibliothek/wer-bin-ich-wirklich",
   },
   {

@@ -15,11 +15,9 @@ export function AstralQuote() {
           „
         </span>
 
-        <blockquote className="mt-2 font-serif text-3xl font-light leading-snug text-white sm:text-4xl md:text-5xl">
+        <blockquote className="mt-2 space-y-4 font-serif text-3xl font-light leading-snug text-white sm:text-4xl md:text-5xl">
           {astralQuote.lines.map((line) => (
-            <span key={line} className="block">
-              {line}
-            </span>
+            <p key={line}>{line}</p>
           ))}
         </blockquote>
 
