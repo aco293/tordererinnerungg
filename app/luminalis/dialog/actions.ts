@@ -70,20 +70,7 @@ export async function createDialogEntry(
   return { error: null, ok: true };
 }
 
-export async function deleteDialogEntry(formData: FormData) {
-  if (!configured()) return;
-
-  const user = await getCurrentUser();
-  if (!user) return;
-
-  const entryId = String(formData.get("entry_id") ?? "").trim();
-  if (entryId) {
-    await deleteLuminalisEntry(user.id, entryId);
-    revalidatePath("/luminalis/dialog");
-  }
-}
-
-/** Löschen von der Detailseite aus – danach zurück in den Dialograum. */
+/** Löschen (Liste und Detailseite) – danach zurück in den Dialograum. */
 export async function deleteEntryAction(formData: FormData) {
   if (!configured()) {
     redirect("/anmelden");

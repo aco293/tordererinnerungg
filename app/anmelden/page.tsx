@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: "Melde dich an, um deinen persönlichen Luminalis-Raum zu betreten.",
 };
 
+export const dynamic = "force-dynamic";
+
 /** Nur interne Pfade zulassen – keine offenen Redirects. */
 function safeNext(value: string | undefined): string {
   return value && value.startsWith("/") && !value.startsWith("//")

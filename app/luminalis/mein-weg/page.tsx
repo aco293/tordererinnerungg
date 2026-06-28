@@ -28,6 +28,8 @@ function formatDate(iso: string): string {
   }
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function MeinWegPage() {
   // Schutz auch auf Seitenebene (zusätzlich zum Proxy).
   if (

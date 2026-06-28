@@ -16,6 +16,8 @@ const SUBTITLE_NEW =
 const SUBTITLE_EDIT =
   "Aktualisiere, was sich in dir verändert hat. Luminalis nimmt deinen aktuellen Weg behutsam wahr.";
 
+export const dynamic = "force-dynamic";
+
 export default async function OnboardingPage() {
   // Ohne Supabase-Konfiguration: ruhige Hinweisseite, kein Crash.
   if (

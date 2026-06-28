@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: "Der Beginn deines persönlichen Luminalis-Raums.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function KontoPage() {
   // Schutz auch auf Seitenebene (zusätzlich zur Middleware).
   if (

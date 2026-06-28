@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { deleteDialogEntry } from "@/app/luminalis/dialog/actions";
+import { DeleteEntryButton } from "@/components/luminalis/dialog/DeleteEntryButton";
 import type { LuminalisEntry } from "@/lib/luminalis/entries";
 
 function formatDate(iso: string): string {
@@ -96,15 +96,7 @@ export function RecentEntries({
             >
               Eintrag öffnen
             </Link>
-            <form action={deleteDialogEntry}>
-              <input type="hidden" name="entry_id" value={entry.id} />
-              <button
-                type="submit"
-                className="text-xs uppercase tracking-[0.2em] text-slate-500 transition-colors hover:text-rose-300/80"
-              >
-                Löschen
-              </button>
-            </form>
+            <DeleteEntryButton entryId={entry.id} compact />
           </div>
         </li>
       ))}

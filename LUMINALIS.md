@@ -73,6 +73,17 @@ Schicht der späteren Frequenzintelligenz.
 - Er formuliert nur behutsame Spiegelungen.
 - Er ist die Brücke zwischen Dialograum und späterem KI-Begleiter.
 
+## Luminalis V1 – persönlicher Weg-Raum
+
+- Der Nutzer kann eine persönliche Ausrichtung speichern und jederzeit
+  aktualisieren.
+- Der Dialograum sammelt private Weg-Einträge.
+- Weg-Einträge können geöffnet, bearbeitet, gelöscht (mit Bestätigung) und
+  gefiltert werden (Säule, Modus, Thema, Suche).
+- Der Frequenzspiegel zeigt einfache Muster aus den eigenen Einträgen – ohne
+  Bewertung, ohne Diagnose.
+- Alle persönlichen Daten bleiben dem jeweiligen Nutzerkonto zugeordnet (RLS).
+
 ## Leitplanken
 
 Luminalis folgt der [Charta](./CHARTA.md): Der Mensch entscheidet, die KI
@@ -104,3 +115,19 @@ Frequenzintelligenz.
 
 Komplexere Funktionen (KI-Begleiter u. a.) folgen in späteren Phasen – behutsam
 und gemäß dieser Definition.
+
+## Supabase Setup
+
+In dieser Reihenfolge:
+
+1. Supabase-Projekt erstellen.
+2. Environment Variables setzen (`NEXT_PUBLIC_SUPABASE_URL`,
+   `NEXT_PUBLIC_SUPABASE_ANON_KEY`) – lokal in `.env.local`, im Deployment in den
+   Projekt-Variablen.
+3. Migration `001_luminalis_foundation.sql` ausführen.
+4. Migration `002_luminalis_entries.sql` ausführen.
+5. Migration `003_luminalis_permissions.sql` ausführen.
+6. Redirect-URLs setzen (Authentication → URL Configuration), u. a.
+   `<basis-url>/auth/callback`.
+7. Deployment (z. B. Vercel) neu deployen, damit die Variablen greifen.
+8. `/setup-check` aufrufen und prüfen, dass alle Punkte auf „Ja" stehen.

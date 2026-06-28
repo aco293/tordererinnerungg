@@ -73,9 +73,12 @@ export async function getLuminalisEntriesFiltered(
   if (mode) query = query.eq("mode", mode);
   if (topic) query = query.contains("resonance_topics", [topic]);
   if (search) {
-    // Suche in Titel und Inhalt; Sonderzeichen für ilike-Muster entschärfen.
-    const safe = search.replace(/[%,()]/g, " ");
-    query = query.or(`title.ilike.%${safe}%,content.ilike.%${safe}%`);
+    // Suche in Titel und Inhalt; Sonderzeichen, die das PostgREST-or-Filter
+    // oder das ilike-Muster brechen könnten, neutralisieren.
+    const safe = search.replace(/[%,*()]/g, " ").trim();
+    if (safe) {
+      query = query.or(`title.ilike.%${safe}%,content.ilike.%${safe}%`);
+    }
   }
 
   const { data } = await query

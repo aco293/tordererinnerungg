@@ -26,6 +26,8 @@ const SUBTITLE =
 const INTRO =
   "Luminalis antwortet hier noch nicht als KI. Dieser Raum sammelt deine eigenen Worte, damit Verbindung, Erinnerung und Resonanz mit der Zeit sichtbar werden können.";
 
+export const dynamic = "force-dynamic";
+
 export default async function DialogPage({
   searchParams,
 }: {

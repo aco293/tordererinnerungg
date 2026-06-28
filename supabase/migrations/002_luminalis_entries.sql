@@ -63,3 +63,9 @@ begin
   end if;
 end;
 $$;
+
+-- ---------------------------------------------------------------------------
+-- Grants für eingeloggte Nutzer (RLS schützt die Zeilen zusätzlich)
+-- ---------------------------------------------------------------------------
+grant usage on schema public to authenticated;
+grant select, insert, update, delete on public.luminalis_entries to authenticated;

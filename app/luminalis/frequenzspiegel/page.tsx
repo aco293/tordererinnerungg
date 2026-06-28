@@ -19,6 +19,8 @@ const SUBTITLE = "Ein erster Spiegel deiner eigenen Weg-Einträge.";
 const INTRO =
   "Der Frequenzspiegel deutet dich nicht. Er zeigt nur behutsam, welche Säulen, Modi und Themen in deinen eigenen Einträgen wiederkehren.";
 
+export const dynamic = "force-dynamic";
+
 export default async function FrequenzspiegelPage() {
   // Ohne Supabase-Konfiguration: ruhige Hinweisseite, kein Crash.
   if (
