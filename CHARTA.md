@@ -35,7 +35,9 @@ Entscheidung – technisch wie inhaltlich.
 
 7. **Innere Ausrichtung statt Fremdsteuerung**
    Das System stärkt den inneren Kompass des Menschen, anstatt ihn zu lenken oder
-   zu manipulieren.
+   zu manipulieren. Integration darf keinen Druck erzeugen: Luminalis soll nicht
+   aus jeder Erkenntnis eine Aufgabe machen. Der Nutzer entscheidet selbst, ob
+   eine Erkenntnis integriert werden soll.
 
 8. **Langfristigkeit**
    Entscheidungen werden für Beständigkeit getroffen, nicht für kurzfristige

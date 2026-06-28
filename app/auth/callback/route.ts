@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { safeInternalPath } from "@/lib/auth/redirect";
 
 /**
  * Verarbeitet Supabase-E-Mail-Bestätigungen (PKCE-Flow):
@@ -8,8 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const nextParam = searchParams.get("next");
-  const next = nextParam && nextParam.startsWith("/") ? nextParam : "/konto";
+  const next = safeInternalPath(searchParams.get("next"));
 
   // Ohne Supabase-Konfiguration ruhig zur Anmeldung zurück.
   if (

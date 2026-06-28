@@ -95,6 +95,18 @@ Schicht der späteren Frequenzintelligenz.
 - Erkenntnisse bilden später eine wichtige Grundlage für Erinnerung und
   Frequenzintelligenz.
 
+## Integration V0 – nächster geplanter Schritt
+
+- Weg-Einträge zeigen, was im Moment präsent war.
+- Erkenntnisse bewahren, was daraus klar geworden ist.
+- Integration wird der nächste Raum, in dem der Nutzer aus einer Erkenntnis einen
+  bewussten nächsten Schritt formuliert.
+- Luminalis soll Integration nicht erzwingen.
+- Integration ist eine Einladung, Erkenntnis ins Leben zu bringen.
+- Keine automatische Bewertung.
+- Keine Pflicht.
+- Keine Produktivitätslogik.
+
 ## Leitplanken
 
 Luminalis folgt der [Charta](./CHARTA.md): Der Mensch entscheidet, die KI

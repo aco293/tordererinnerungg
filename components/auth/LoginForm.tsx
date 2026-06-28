@@ -9,6 +9,26 @@ import {
   authLabelClass,
 } from "@/components/auth/AuthShell";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
+import { safeInternalPath } from "@/lib/auth/redirect";
+
+/** Übersetzt Supabase-Fehler in ruhige, nutzerfreundliche Meldungen. */
+function loginErrorMessage(raw: string): string {
+  const message = raw.toLowerCase();
+  if (message.includes("email not confirmed")) {
+    return "Bitte bestätige zuerst deine E-Mail-Adresse. Danach kannst du dich anmelden.";
+  }
+  if (message.includes("invalid login credentials")) {
+    return "E-Mail oder Passwort stimmen nicht. Bitte prüfe deine Eingaben.";
+  }
+  if (
+    message.includes("rate limit") ||
+    message.includes("too many requests") ||
+    message.includes("over_request_rate_limit")
+  ) {
+    return "Zu viele Versuche. Bitte warte einen Moment und versuche es später erneut.";
+  }
+  return "Die Anmeldung konnte nicht abgeschlossen werden. Bitte versuche es erneut.";
+}
 
 export function LoginForm() {
   const router = useRouter();
@@ -40,14 +60,13 @@ export function LoginForm() {
     setLoading(false);
 
     if (signInError) {
-      setError("E-Mail oder Passwort stimmen nicht. Bitte versuche es erneut.");
+      setError(loginErrorMessage(signInError.message));
       return;
     }
 
     // Nach erfolgreichem Login zum persönlichen Raum (oder zum ursprünglich
     // angefragten geschützten Ziel).
-    const weiter = searchParams.get("weiter");
-    router.push(weiter && weiter.startsWith("/") ? weiter : "/konto");
+    router.push(safeInternalPath(searchParams.get("weiter")));
     router.refresh();
   }
 

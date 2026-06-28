@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { buttonBase, buttonVariants } from "@/components/ui/Button";
 import {
@@ -9,14 +9,22 @@ import {
   authLabelClass,
 } from "@/components/auth/AuthShell";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
+import { safeInternalPath } from "@/lib/auth/redirect";
 
 export function RegisterForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const nextPath = safeInternalPath(searchParams.get("weiter"));
+  const loginHref =
+    nextPath === "/konto"
+      ? "/anmelden"
+      : `/anmelden?weiter=${encodeURIComponent(nextPath)}`;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,7 +49,7 @@ export function RegisterForm() {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/konto`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
       },
     });
     setLoading(false);
@@ -53,13 +61,13 @@ export function RegisterForm() {
 
     // Mit aktiver E-Mail-Bestätigung gibt es noch keine Session.
     if (data.session) {
-      router.push("/konto");
+      router.push(nextPath);
       router.refresh();
       return;
     }
 
     setNotice(
-      "Fast geschafft. Bitte bestätige deine E-Mail-Adresse über den Link, den wir dir gesendet haben.",
+      "Fast geschafft. Bitte bestätige deine E-Mail-Adresse über den Link, den wir dir gesendet haben. Danach kannst du dich anmelden.",
     );
   }
 
@@ -105,9 +113,17 @@ export function RegisterForm() {
         </p>
       )}
       {notice && (
-        <p role="status" className="text-sm leading-relaxed text-gold-soft">
-          {notice}
-        </p>
+        <div className="rounded-xl border border-gold/20 bg-gold/[0.05] px-4 py-3">
+          <p role="status" className="text-sm leading-relaxed text-gold-soft">
+            {notice}
+          </p>
+          <Link
+            href={loginHref}
+            className="mt-3 inline-block text-sm text-gold underline decoration-gold/40 underline-offset-4 transition-colors hover:decoration-gold"
+          >
+            Zur Anmeldung
+          </Link>
+        </div>
       )}
 
       <button
@@ -121,7 +137,7 @@ export function RegisterForm() {
       <p className="pt-2 text-center text-sm text-slate-400">
         Schon ein Konto?{" "}
         <Link
-          href="/anmelden"
+          href={loginHref}
           className="text-gold underline decoration-gold/40 underline-offset-4 transition-colors hover:decoration-gold"
         >
           Einloggen

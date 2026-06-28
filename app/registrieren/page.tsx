@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { RegisterForm } from "@/components/auth/RegisterForm";
 import { createClient } from "@/lib/supabase/server";
+import { safeInternalPath } from "@/lib/auth/redirect";
 
 export const metadata: Metadata = {
   title: "Registrieren",
@@ -10,13 +12,6 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = "force-dynamic";
-
-/** Nur interne Pfade zulassen – keine offenen Redirects. */
-function safeNext(value: string | undefined): string {
-  return value && value.startsWith("/") && !value.startsWith("//")
-    ? value
-    : "/konto";
-}
 
 export default async function RegistrierenPage({
   searchParams,
@@ -34,7 +29,7 @@ export default async function RegistrierenPage({
     } = await supabase.auth.getUser();
     if (user) {
       const { weiter } = await searchParams;
-      redirect(safeNext(weiter));
+      redirect(safeInternalPath(weiter));
     }
   }
 
@@ -44,7 +39,9 @@ export default async function RegistrierenPage({
       title="Konto erstellen"
       subtitle="Öffne deinen persönlichen Raum – den Beginn deines Weges mit Luminalis."
     >
-      <RegisterForm />
+      <Suspense fallback={null}>
+        <RegisterForm />
+      </Suspense>
     </AuthShell>
   );
 }

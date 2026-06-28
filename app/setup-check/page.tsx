@@ -32,6 +32,7 @@ export default async function SetupCheckPage() {
   let profilesOk = false;
   let luminalisProfilesOk = false;
   let entriesOk = false;
+  let insightsOk = false;
 
   if (configured) {
     const supabase = await createClient();
@@ -40,11 +41,13 @@ export default async function SetupCheckPage() {
     } = await supabase.auth.getUser();
     userPresent = Boolean(user);
 
-    [profilesOk, luminalisProfilesOk, entriesOk] = await Promise.all([
-      isTableReachable(supabase, "profiles"),
-      isTableReachable(supabase, "luminalis_profiles"),
-      isTableReachable(supabase, "luminalis_entries"),
-    ]);
+    [profilesOk, luminalisProfilesOk, entriesOk, insightsOk] =
+      await Promise.all([
+        isTableReachable(supabase, "profiles"),
+        isTableReachable(supabase, "luminalis_profiles"),
+        isTableReachable(supabase, "luminalis_entries"),
+        isTableReachable(supabase, "luminalis_insights"),
+      ]);
   }
 
   const checks: Check[] = [
@@ -54,6 +57,7 @@ export default async function SetupCheckPage() {
     { label: "Tabelle profiles erreichbar", ok: profilesOk },
     { label: "Tabelle luminalis_profiles erreichbar", ok: luminalisProfilesOk },
     { label: "Tabelle luminalis_entries erreichbar", ok: entriesOk },
+    { label: "Tabelle luminalis_insights erreichbar", ok: insightsOk },
   ];
 
   return (

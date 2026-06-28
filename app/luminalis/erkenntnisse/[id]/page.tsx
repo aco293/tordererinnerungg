@@ -129,6 +129,20 @@ export default async function InsightDetailPage({
             </div>
           )}
 
+          <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm">
+            <p className="text-xs uppercase tracking-[0.2em] text-gold/70">
+              Integration
+            </p>
+            <p className="mt-2 text-base leading-relaxed text-slate-300/80">
+              Bald kannst du aus dieser Erkenntnis einen bewussten nächsten
+              Schritt formulieren. Nicht als Aufgabe, sondern als Einladung zur
+              Verkörperung.
+            </p>
+            <span className="mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-slate-500">
+              Integration bald verfügbar
+            </span>
+          </div>
+
           <div className="mt-12 flex flex-wrap items-center gap-3 border-t border-white/10 pt-8">
             <Button href="/luminalis/erkenntnisse" variant="secondary">
               Zurück zu Erkenntnisse

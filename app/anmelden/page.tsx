@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { createClient } from "@/lib/supabase/server";
+import { safeInternalPath } from "@/lib/auth/redirect";
 
 export const metadata: Metadata = {
   title: "Anmelden",
@@ -11,13 +12,6 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = "force-dynamic";
-
-/** Nur interne Pfade zulassen – keine offenen Redirects. */
-function safeNext(value: string | undefined): string {
-  return value && value.startsWith("/") && !value.startsWith("//")
-    ? value
-    : "/konto";
-}
 
 export default async function AnmeldenPage({
   searchParams,
@@ -35,7 +29,7 @@ export default async function AnmeldenPage({
     } = await supabase.auth.getUser();
     if (user) {
       const { weiter } = await searchParams;
-      redirect(safeNext(weiter));
+      redirect(safeInternalPath(weiter));
     }
   }
 

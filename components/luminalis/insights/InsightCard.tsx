@@ -33,7 +33,12 @@ export function InsightCard({ insight }: { insight: LuminalisInsight }) {
               <span aria-hidden className="text-gold/40">
                 •
               </span>
-              <span className="text-violet-soft/80">{insight.pillar}</span>
+              <Link
+                href={`/luminalis/erkenntnisse?pillar=${encodeURIComponent(insight.pillar)}`}
+                className="text-violet-soft/80 transition-colors hover:text-violet-soft"
+              >
+                {insight.pillar}
+              </Link>
             </>
           )}
         </span>
@@ -60,11 +65,13 @@ export function InsightCard({ insight }: { insight: LuminalisInsight }) {
       {insight.resonance_topics.length > 0 && (
         <ul className="mt-4 flex flex-wrap gap-2">
           {insight.resonance_topics.map((topic) => (
-            <li
-              key={topic}
-              className="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300/75"
-            >
-              {topic}
+            <li key={topic}>
+              <Link
+                href={`/luminalis/erkenntnisse?topic=${encodeURIComponent(topic)}`}
+                className="inline-block rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300/75 transition-colors hover:border-white/25 hover:text-slate-200"
+              >
+                {topic}
+              </Link>
             </li>
           ))}
         </ul>
