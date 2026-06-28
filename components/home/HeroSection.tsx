@@ -38,7 +38,7 @@ export function HeroSection() {
           className="font-serif text-5xl font-light leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl animate-fade-up"
           style={{ animationDelay: "0.1s" }}
         >
-          <span className="bg-gradient-to-b from-white via-violet-soft to-gold-soft bg-clip-text text-transparent">
+          <span className="bg-gradient-to-b from-white to-gold-soft bg-clip-text text-transparent">
             {homeHero.title}
           </span>
         </h1>

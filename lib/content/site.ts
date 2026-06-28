@@ -4,7 +4,7 @@
  */
 
 export const site = {
-  name: "TorDerErinnerung",
+  name: "Tor der Erinnerung",
   tagline: "Ein digitales Tor für Bewusstsein, Erinnerung und innere Rückverbindung.",
   description:
     "Ein ruhiger, mystischer Raum für Bewusstsein, Erinnerung, Frequenzwissen und die Rückverbindung mit dem eigenen inneren Ursprung.",
@@ -14,7 +14,7 @@ export const site = {
 
 export const homeHero = {
   eyebrow: "Willkommen am Tor",
-  title: "TorDerErinnerung",
+  title: "Tor der Erinnerung",
   subtitle:
     "Ein digitales Tor für Bewusstsein, Erinnerung und innere Rückverbindung.",
   primaryCta: { label: "Tor betreten", href: "/raeume" },

@@ -19,9 +19,9 @@ const config: Config = {
         },
         // Violett – Bewusstsein
         violet: {
-          glow: "#7c5cff",
-          soft: "#a489ff",
-          deep: "#3a2a7a",
+          glow: "#6f6fd6",
+          soft: "#a6acdf",
+          deep: "#262a5e",
         },
         // Gold – Erinnerung
         gold: {
@@ -35,12 +35,12 @@ const config: Config = {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        glow: "0 0 40px -10px rgba(124, 92, 255, 0.45)",
+        glow: "0 0 40px -10px rgba(111, 111, 214, 0.45)",
         "glow-gold": "0 0 48px -12px rgba(232, 193, 122, 0.4)",
       },
       backgroundImage: {
         "radial-fade":
-          "radial-gradient(ellipse at top, rgba(58, 42, 122, 0.35), transparent 60%)",
+          "radial-gradient(ellipse at top, rgba(38, 42, 94, 0.35), transparent 60%)",
       },
       keyframes: {
         "fade-up": {

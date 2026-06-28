@@ -10,7 +10,7 @@ export const buttonBase =
 
 export const buttonVariants: Record<Variant, string> = {
   primary:
-    "bg-gradient-to-r from-violet-glow to-violet-deep text-white shadow-glow hover:shadow-[0_0_56px_-8px_rgba(124,92,255,0.7)] hover:-translate-y-0.5",
+    "bg-gradient-to-r from-violet-glow to-violet-deep text-white shadow-glow hover:shadow-[0_0_56px_-8px_rgba(111,111,214,0.7)] hover:-translate-y-0.5",
   secondary:
     "border border-gold/40 bg-gold/5 text-gold-soft hover:border-gold/70 hover:bg-gold/10 hover:shadow-glow-gold hover:-translate-y-0.5",
   ghost:
