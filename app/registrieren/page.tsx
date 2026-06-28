@@ -9,7 +9,18 @@ export const metadata: Metadata = {
   description: "Erstelle dein Konto und öffne deinen persönlichen Luminalis-Raum.",
 };
 
-export default async function RegistrierenPage() {
+/** Nur interne Pfade zulassen – keine offenen Redirects. */
+function safeNext(value: string | undefined): string {
+  return value && value.startsWith("/") && !value.startsWith("//")
+    ? value
+    : "/konto";
+}
+
+export default async function RegistrierenPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ weiter?: string }>;
+}) {
   // Bereits eingeloggte Nutzer brauchen keine Registrierungsseite.
   if (
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -19,7 +30,10 @@ export default async function RegistrierenPage() {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    if (user) redirect("/konto");
+    if (user) {
+      const { weiter } = await searchParams;
+      redirect(safeNext(weiter));
+    }
   }
 
   return (

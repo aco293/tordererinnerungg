@@ -26,7 +26,9 @@ Entscheidung – technisch wie inhaltlich.
 
 6. **Resonanz als Mustererkennung**
    Wiederkehrende Themen werden behutsam sichtbar gemacht – als Einladung zur
-   Selbsterkenntnis, nicht als Bewertung.
+   Selbsterkenntnis, nicht als Bewertung. Muster werden transparent aus den
+   eigenen Eingaben abgeleitet. Jede Spiegelung muss nachvollziehbar bleiben;
+   der Nutzer soll erkennen können, worauf eine Spiegelung basiert.
 
 7. **Innere Ausrichtung statt Fremdsteuerung**
    Das System stärkt den inneren Kompass des Menschen, anstatt ihn zu lenken oder

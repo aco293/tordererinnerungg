@@ -7,6 +7,7 @@ import { LuminalisSubnav } from "@/components/luminalis/LuminalisSubnav";
 import { LUMINALIS_PILLARS } from "@/lib/luminalis/pillars";
 import { getRecentLuminalisEntries } from "@/lib/luminalis/entries";
 import { getCurrentUser, getLuminalisProfile } from "@/lib/luminalis/profile";
+import { getResonanceOverview } from "@/lib/luminalis/resonance";
 
 export const metadata: Metadata = {
   title: "Mein Weg",
@@ -47,7 +48,11 @@ export default async function MeinWegPage() {
     redirect("/luminalis/onboarding");
   }
 
-  const recentEntries = await getRecentLuminalisEntries(user.id, 3);
+  const [recentEntries, overview] = await Promise.all([
+    getRecentLuminalisEntries(user.id, 3),
+    getResonanceOverview(user.id),
+  ]);
+  const entryCount = overview.totalEntries;
   const selected = new Set(profile.selected_pillars);
   const greetingName = profile.display_name?.trim();
 
@@ -145,6 +150,31 @@ export default async function MeinWegPage() {
 
           <div className="mt-7">
             <Button href="/luminalis/dialog">Dialograum öffnen</Button>
+          </div>
+        </Card>
+      </div>
+
+      {/* Frequenzspiegel-Einstieg */}
+      <div className="mx-auto mt-6 max-w-2xl">
+        <Card glow="violet" className="p-7">
+          <h2 className="font-serif text-2xl font-light text-white">
+            Frequenzspiegel
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-slate-300/80">
+            Erkenne, welche Säulen, Modi und Resonanzthemen in deinen eigenen
+            Weg-Einträgen wiederkehren.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-slate-400/85">
+            {entryCount > 0
+              ? `Aus ${entryCount} ${
+                  entryCount === 1 ? "Eintrag" : "Einträgen"
+                } entsteht dein erster Spiegel.`
+              : "Der Frequenzspiegel wird sichtbar, sobald du erste Einträge im Dialograum speicherst."}
+          </p>
+          <div className="mt-7">
+            <Button href="/luminalis/frequenzspiegel" variant="secondary">
+              Frequenzspiegel öffnen
+            </Button>
           </div>
         </Card>
       </div>

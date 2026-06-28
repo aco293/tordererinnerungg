@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { buttonBase, buttonVariants } from "@/components/ui/Button";
 import { authFieldClass, authLabelClass } from "@/components/auth/AuthShell";
@@ -34,9 +34,18 @@ function SubmitButton() {
 export function DialogEntryForm({ action }: DialogEntryFormProps) {
   const [state, formAction] = useActionState(action, dialogInitialState);
   const [pillar, setPillar] = useState<string>(LUMINALIS_PILLARS[0].label);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Nach erfolgreichem Speichern die Felder leeren, damit der gespeicherte
+  // Text nicht weiter im Formular steht.
+  useEffect(() => {
+    if (state.ok && !state.error) {
+      formRef.current?.reset();
+    }
+  }, [state]);
 
   return (
-    <form action={formAction} className="space-y-6">
+    <form ref={formRef} action={formAction} className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="mode" className={authLabelClass}>

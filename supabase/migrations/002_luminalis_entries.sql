@@ -4,6 +4,9 @@
 -- Idempotent gehalten, damit erneutes Ausführen nicht fehlschlägt.
 -- =============================================================================
 
+-- gen_random_uuid() stammt aus pgcrypto (auf Supabase i. d. R. bereits aktiv).
+create extension if not exists pgcrypto;
+
 create table if not exists public.luminalis_entries (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users (id) on delete cascade,

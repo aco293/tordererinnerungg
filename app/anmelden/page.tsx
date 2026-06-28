@@ -10,7 +10,18 @@ export const metadata: Metadata = {
   description: "Melde dich an, um deinen persönlichen Luminalis-Raum zu betreten.",
 };
 
-export default async function AnmeldenPage() {
+/** Nur interne Pfade zulassen – keine offenen Redirects. */
+function safeNext(value: string | undefined): string {
+  return value && value.startsWith("/") && !value.startsWith("//")
+    ? value
+    : "/konto";
+}
+
+export default async function AnmeldenPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ weiter?: string }>;
+}) {
   // Bereits eingeloggte Nutzer brauchen keine Anmeldeseite.
   if (
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -20,7 +31,10 @@ export default async function AnmeldenPage() {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    if (user) redirect("/konto");
+    if (user) {
+      const { weiter } = await searchParams;
+      redirect(safeNext(weiter));
+    }
   }
 
   return (

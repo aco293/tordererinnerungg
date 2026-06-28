@@ -61,6 +61,18 @@ Resonanzthemen.
 - Diese Einträge bilden später die Grundlage für Erinnerung, Resonanz und
   Frequenzintelligenz.
 
+## Frequenzspiegel V0
+
+Der Frequenzspiegel (`/luminalis/frequenzspiegel`) ist die erste sichtbare
+Schicht der späteren Frequenzintelligenz.
+
+- Er basiert ausschließlich auf den eigenen Weg-Einträgen des Nutzers.
+- Er zählt und ordnet Säulen, Modi und Resonanzthemen.
+- Er bewertet nicht.
+- Er diagnostiziert nicht.
+- Er formuliert nur behutsame Spiegelungen.
+- Er ist die Brücke zwischen Dialograum und späterem KI-Begleiter.
+
 ## Leitplanken
 
 Luminalis folgt der [Charta](./CHARTA.md): Der Mensch entscheidet, die KI
@@ -77,9 +89,18 @@ vorbereitet:
 - Geschützter Einstieg: `/konto`
 - Geschützte erste Ausrichtung: `/luminalis/onboarding`
 - Geschützter persönlicher Raum: `/luminalis/mein-weg`
+- Geschützter Dialograum: `/luminalis/dialog`
+- Geschützter Frequenzspiegel: `/luminalis/frequenzspiegel`
 
-Datenbasis: Supabase-Tabellen `profiles` und `luminalis_profiles` mit Row Level
-Security (siehe `supabase/migrations/001_luminalis_foundation.sql`).
+Datenbasis:
 
-Komplexere Funktionen (KI-Begleiter, Resonanzkarte u. a.) folgen in späteren
-Phasen – behutsam und gemäß dieser Definition.
+- `profiles` und `luminalis_profiles` mit Row Level Security
+  (`supabase/migrations/001_luminalis_foundation.sql`).
+- `luminalis_entries` für die Weg-Einträge des Dialograums
+  (`supabase/migrations/002_luminalis_entries.sql`).
+
+Der Dialograum bildet die Grundlage für den Frequenzspiegel und die spätere
+Frequenzintelligenz.
+
+Komplexere Funktionen (KI-Begleiter u. a.) folgen in späteren Phasen – behutsam
+und gemäß dieser Definition.

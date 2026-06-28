@@ -68,6 +68,19 @@ export default function DatenschutzPage() {
                   mögliche Resonanz- und Erinnerungsfunktionen.
                 </li>
                 <li>
+                  Aus gespeicherten Weg-Einträgen können im persönlichen Bereich
+                  einfache Muster angezeigt werden, z. B. häufige Säulen, Modi
+                  oder Resonanzthemen.
+                </li>
+                <li>
+                  Diese Muster dienen der persönlichen Reflexion. Sie sind keine
+                  psychologische Diagnose und keine endgültige Aussage über den
+                  Menschen.
+                </li>
+                <li>
+                  Sie werden ausschließlich im jeweiligen Nutzerkonto angezeigt.
+                </li>
+                <li>
                   Auch hierfür gilt: Vor Veröffentlichung wird der Text rechtlich
                   geprüft und vollständig ausgearbeitet.
                 </li>
