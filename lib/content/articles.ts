@@ -23,7 +23,29 @@ export const CATEGORY_ORDER = [
   "astralreisen",
 ] as const;
 
-export type ArticleStatus = "geplant" | "entwurf" | "veroeffentlicht";
+/**
+ * Interne, robuste Statuswerte. Das MDX-Frontmatter darf deutsch geschrieben
+ * sein ("geplant" / "entwurf" / "veröffentlicht") – beim Parsen wird auf diese
+ * englischen Werte normalisiert. `published` (Boolean) bleibt das eigentliche
+ * Sichtbarkeits-Tor.
+ */
+export type ArticleStatus = "planned" | "draft" | "published";
+
+function normalizeStatus(raw: unknown): ArticleStatus {
+  const value = String(raw ?? "").trim().toLowerCase();
+  if (["published", "veröffentlicht", "veroeffentlicht"].includes(value)) {
+    return "published";
+  }
+  if (["planned", "geplant"].includes(value)) return "planned";
+  return "draft";
+}
+
+/** Deutsche Anzeige-Beschriftung für die UI. */
+export const articleStatusLabel: Record<ArticleStatus, string> = {
+  planned: "Geplant",
+  draft: "Entwurf",
+  published: "Veröffentlicht",
+};
 
 export type ArticleMeta = {
   slug: string;
@@ -74,7 +96,7 @@ function parseArticleFile(categorySlug: string, fileName: string): Article {
     title: String(data.title ?? slug),
     description: String(data.description ?? ""),
     category: String(data.category ?? toReadableCategory(categorySlug)),
-    status: (data.status as ArticleStatus) ?? "entwurf",
+    status: normalizeStatus(data.status),
     readingTime: computeReadingTime(content),
     published: Boolean(data.published ?? false),
     featured: Boolean(data.featured ?? false),
@@ -130,9 +152,16 @@ export function getPublishedArticles(): ArticleMeta[] {
   return getAllArticles().filter((meta) => meta.published);
 }
 
-/** Alle Slugs – Grundlage für generateStaticParams. */
+/** Alle Slugs (inkl. Entwürfe) – z. B. für interne Werkzeuge. */
 export function getArticleSlugs(): string[] {
   return readAllArticles().map((article) => article.meta.slug);
+}
+
+/** Nur Slugs veröffentlichter Artikel – Grundlage für generateStaticParams. */
+export function getPublishedArticleSlugs(): string[] {
+  return readAllArticles()
+    .filter((article) => article.meta.published)
+    .map((article) => article.meta.slug);
 }
 
 /** Einzelnen Artikel inklusive MDX-Inhalt laden. */
@@ -140,12 +169,15 @@ export function getArticleBySlug(slug: string): Article | null {
   return readAllArticles().find((article) => article.meta.slug === slug) ?? null;
 }
 
-/** Vorheriger und nächster Artikel in der globalen Reihenfolge. */
+/**
+ * Vorheriger und nächster Artikel – ausschließlich über veröffentlichte
+ * Artikel, damit die Navigation keine Entwürfe verlinkt.
+ */
 export function getAdjacentArticles(slug: string): {
   prev: ArticleMeta | null;
   next: ArticleMeta | null;
 } {
-  const all = readAllArticles();
+  const all = readAllArticles().filter((article) => article.meta.published);
   const index = all.findIndex((article) => article.meta.slug === slug);
   if (index === -1) return { prev: null, next: null };
   return {

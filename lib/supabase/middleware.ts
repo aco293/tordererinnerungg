@@ -13,7 +13,11 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 /** Routen, die nur eingeloggten Nutzern offenstehen. */
-export const PROTECTED_PREFIXES = ["/konto", "/luminalis/mein-weg"];
+export const PROTECTED_PREFIXES = [
+  "/konto",
+  "/luminalis/mein-weg",
+  "/luminalis/onboarding",
+];
 
 function isProtectedPath(pathname: string): boolean {
   return PROTECTED_PREFIXES.some(

@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { Section } from "@/components/ui/Section";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser, getLuminalisProfile } from "@/lib/luminalis/profile";
 
 export const metadata: Metadata = {
   title: "Dein persönlicher Raum",
@@ -19,14 +19,12 @@ export default async function KontoPage() {
     redirect("/anmelden");
   }
 
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+  const user = await getCurrentUser();
   if (!user) {
     redirect("/anmelden");
   }
+
+  const profile = await getLuminalisProfile(user.id);
 
   return (
     <Section className="pt-24 sm:pt-28">
@@ -49,18 +47,68 @@ export default async function KontoPage() {
           <p className="mt-2 break-all font-serif text-xl font-light text-white">
             {user.email}
           </p>
-
-          <p className="mt-6 text-sm leading-relaxed text-slate-300/75">
-            Dieser Raum wächst nach und nach. Schritt für Schritt entstehen hier
-            persönliche Werkzeuge für deine Reise – ruhig, klar und ganz auf dich
-            ausgerichtet.
-          </p>
         </div>
 
-        <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-          <Button href="/luminalis/mein-weg">Mein Weg öffnen</Button>
-          <LogoutButton />
-        </div>
+        {profile ? (
+          <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm">
+            <p className="text-xs uppercase tracking-[0.2em] text-gold/70">
+              Deine erste Ausrichtung
+            </p>
+
+            {profile.display_name && (
+              <p className="mt-4 font-serif text-2xl font-light text-white">
+                {profile.display_name}
+              </p>
+            )}
+
+            {profile.guiding_question && (
+              <div className="mt-5">
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                  Aktuelle Leitfrage
+                </p>
+                <p className="mt-2 font-serif text-lg font-light italic text-violet-soft">
+                  „{profile.guiding_question}"
+                </p>
+              </div>
+            )}
+
+            {profile.selected_pillars.length > 0 && (
+              <div className="mt-5">
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                  Gewählte Säulen
+                </p>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {profile.selected_pillars.map((pillar) => (
+                    <li
+                      key={pillar}
+                      className="rounded-full border border-gold/30 px-3 py-1 text-xs text-gold-soft"
+                    >
+                      {pillar}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+              <Button href="/luminalis/mein-weg">Mein Weg öffnen</Button>
+              <LogoutButton />
+            </div>
+          </div>
+        ) : (
+          <div className="mt-8 rounded-2xl border border-gold/20 bg-gold/[0.04] p-7 backdrop-blur-sm">
+            <p className="text-base leading-relaxed text-slate-300/85">
+              Dein Weg mit Luminalis beginnt mit einer ersten, behutsamen
+              Ausrichtung – sie bildet die Grundlage deines persönlichen Raums.
+            </p>
+            <div className="mt-7 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+              <Button href="/luminalis/onboarding">
+                Erste Ausrichtung beginnen
+              </Button>
+              <LogoutButton />
+            </div>
+          </div>
+        )}
       </div>
     </Section>
   );

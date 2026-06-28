@@ -8,13 +8,13 @@ import { Section } from "@/components/ui/Section";
 import {
   getAdjacentArticles,
   getArticleBySlug,
-  getArticleSlugs,
+  getPublishedArticleSlugs,
 } from "@/lib/content/articles";
 
 type Params = { slug: string };
 
 export function generateStaticParams(): Params[] {
-  return getArticleSlugs().map((slug) => ({ slug }));
+  return getPublishedArticleSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -24,7 +24,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
-  if (!article) return {};
+  if (!article || !article.meta.published) return {};
   return {
     title: article.meta.title,
     description: article.meta.description,
@@ -39,7 +39,8 @@ export default async function ArticlePage({
   const { slug } = await params;
   const article = getArticleBySlug(slug);
 
-  if (!article) {
+  // Entwürfe und geplante Artikel sind nicht öffentlich erreichbar.
+  if (!article || !article.meta.published) {
     notFound();
   }
 

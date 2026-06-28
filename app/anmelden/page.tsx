@@ -1,14 +1,28 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { LoginForm } from "@/components/auth/LoginForm";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Anmelden",
   description: "Melde dich an, um deinen persönlichen Luminalis-Raum zu betreten.",
 };
 
-export default function AnmeldenPage() {
+export default async function AnmeldenPage() {
+  // Bereits eingeloggte Nutzer brauchen keine Anmeldeseite.
+  if (
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ) {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) redirect("/konto");
+  }
+
   return (
     <AuthShell
       eyebrow="Willkommen zurück"

@@ -1,7 +1,12 @@
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LibraryTopicCard } from "@/components/library/LibraryTopicCard";
-import { cycleMeta, cycleOrder, topicsByCycle } from "@/lib/content/library";
+import {
+  cycleMeta,
+  cycleOrder,
+  toTopicCard,
+  topicsByCycle,
+} from "@/lib/content/library";
 
 /**
  * Die ersten 20 Themen, gruppiert nach Zyklus (Grundlagen, Erinnerung,
@@ -47,7 +52,7 @@ export function LibraryFeaturedTopics() {
               <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {topics.map((topic) => (
                   <li key={topic.id}>
-                    <LibraryTopicCard topic={topic} />
+                    <LibraryTopicCard topic={toTopicCard(topic)} />
                   </li>
                 ))}
               </ul>

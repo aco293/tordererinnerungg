@@ -9,14 +9,17 @@ export type TopicCardData = {
   title: string;
   category: string;
   excerpt: string;
+  /** Anzeige-Beschriftung, z. B. „Veröffentlicht“, „Geplant“, „In Vorbereitung“. */
   status: string;
   /** Ziel der Detailseite – nur bei veröffentlichten Themen verlinkt. */
   href?: string;
+  /** Steuert aktive Verlinkung und Hervorhebung. */
+  published?: boolean;
 };
 
 /** Ein Thema gilt als lesbar, sobald es veröffentlicht ist und ein Ziel hat. */
 function isPublished(topic: TopicCardData): boolean {
-  return topic.status.trim().toLowerCase().startsWith("ver") && Boolean(topic.href);
+  return Boolean(topic.published && topic.href);
 }
 
 /**

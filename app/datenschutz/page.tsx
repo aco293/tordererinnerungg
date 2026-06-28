@@ -25,10 +25,34 @@ export default function DatenschutzPage() {
               Diese Seite wird vor Veröffentlichung rechtlich geprüft und
               vollständig ausgearbeitet.
             </p>
-            <p className="mt-6 text-base leading-relaxed text-slate-300/70">
-              Sobald der persönliche Bereich Luminalis aktiv genutzt wird,
-              findest du hier eine klare, vollständige Datenschutzerklärung –
-              wie und warum Daten verarbeitet werden und welche Rechte du hast.
+
+            <div className="mt-8">
+              <h2 className="font-serif text-xl font-light text-white">
+                Persönlicher Bereich (Luminalis)
+              </h2>
+              <ul className="mt-4 space-y-3 text-base leading-relaxed text-slate-300/80">
+                <li>
+                  Für den persönlichen Luminalis-Bereich wird ein Konto benötigt.
+                </li>
+                <li>
+                  Gespeichert werden können deine E-Mail-Adresse, dein
+                  Anzeigename, deine gewählten Säulen, deine Leitfrage sowie deine
+                  eigenen Eingaben.
+                </li>
+                <li>
+                  Diese Daten dienen ausschließlich deiner persönlichen
+                  Begleitung – nicht der Auswertung durch Dritte.
+                </li>
+                <li>
+                  Vor öffentlicher Veröffentlichung wird die Datenschutzerklärung
+                  rechtlich geprüft und vollständig ausgearbeitet.
+                </li>
+              </ul>
+            </div>
+
+            <p className="mt-8 text-sm leading-relaxed text-slate-400/80">
+              Hinweis: Dieser Text ist ein vorläufiger Entwurf und stellt noch
+              keine abschließende Datenschutzerklärung dar.
             </p>
           </div>
         </div>

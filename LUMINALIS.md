@@ -10,7 +10,21 @@ TorDerErinnerung bleibt der öffentliche Ort. Luminalis ist der persönliche,
 geschützte Bereich für eingeloggte Menschen – ein ruhiger Raum, der mit dem
 Menschen wächst.
 
+## Die erste Ausrichtung
+
+Luminalis beginnt mit der **„Ersten Ausrichtung"** (`/luminalis/onboarding`).
+
+In ihr nimmt der Mensch behutsam seinen aktuellen Weg wahr: Anzeigename,
+aktueller Fokus, eine begleitende Leitfrage, die gerade wichtigen Säulen,
+wiederkehrende Resonanzthemen und eine erste Intention.
+
+Diese Ausrichtung bildet die **Grundlage des persönlichen Begleitsystems**. Sie
+wird im persönlichen Raum „Mein Weg" gespiegelt und wächst mit der Zeit weiter.
+
 ## Die fünf Säulen
+
+Verbindung, Erinnerung, Resonanz, Innere Ausrichtung und Entfaltung sind die
+fünf Säulen von Luminalis.
 
 ### 1. Verbindung
 Was gehört in deinem Leben wieder zusammen? Luminalis hilft, Beziehungen,
@@ -42,11 +56,17 @@ als Grundlage.
 
 ## Status
 
-Aktuell ist die Authentifizierungs- und Kontogrundlage vorbereitet:
+Aktuell sind die Auth-Grundlage und die erste persönliche Profilebene
+vorbereitet:
 
 - Öffentliche Auth-Seiten: `/anmelden`, `/registrieren`
+- Auth-Callback (E-Mail-Bestätigung): `/auth/callback`
 - Geschützter Einstieg: `/konto`
+- Geschützte erste Ausrichtung: `/luminalis/onboarding`
 - Geschützter persönlicher Raum: `/luminalis/mein-weg`
+
+Datenbasis: Supabase-Tabellen `profiles` und `luminalis_profiles` mit Row Level
+Security (siehe `supabase/migrations/001_luminalis_foundation.sql`).
 
 Komplexere Funktionen (KI-Begleiter, Resonanzkarte u. a.) folgen in späteren
 Phasen – behutsam und gemäß dieser Definition.

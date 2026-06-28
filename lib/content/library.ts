@@ -9,6 +9,8 @@
  * Struktur später ohne Umbau auf echte Detailseiten erweitert werden kann.
  */
 
+import type { TopicCardData } from "@/components/library/LibraryTopicCard";
+
 export type GlowTone = "violet" | "gold" | "blue";
 
 export type LibraryCategory = {
@@ -23,7 +25,13 @@ export type LibraryCategory = {
 
 export type TopicCycle = "Grundlagen" | "Erinnerung" | "Erweiterte Räume";
 
-export type TopicStatus = "geplant" | "veröffentlicht";
+export type TopicStatus = "planned" | "published";
+
+/** Deutsche Anzeige-Beschriftung für die UI. */
+export const topicStatusLabel: Record<TopicStatus, string> = {
+  planned: "Geplant",
+  published: "Veröffentlicht",
+};
 
 export type LibraryTopic = {
   id: string;
@@ -103,7 +111,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Bewusstsein",
     excerpt: "Eine erste Annäherung an die Frage hinter allen Fragen.",
-    status: "veröffentlicht",
+    status: "published",
     href: "/lichtbibliothek/wer-bin-ich-wirklich",
   },
   {
@@ -112,7 +120,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Bewusstsein",
     excerpt: "Das Gewahrsein, in dem jede Erfahrung erscheint.",
-    status: "veröffentlicht",
+    status: "published",
     href: "/lichtbibliothek/was-ist-bewusstsein",
   },
   {
@@ -121,7 +129,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Bewusstsein",
     excerpt: "Wer schaut, wenn du nach innen schaust?",
-    status: "veröffentlicht",
+    status: "published",
     href: "/lichtbibliothek/das-auge-des-beobachters",
   },
   {
@@ -130,7 +138,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Bewusstsein",
     excerpt: "Die stillen Schichten, die unser Erleben formen.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/das-unterbewusstsein-verstehen",
   },
   {
@@ -139,7 +147,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Bewusstsein",
     excerpt: "Was uns begegnet und was es über uns sagt.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/realitaet-als-spiegel",
   },
   {
@@ -148,7 +156,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Frequenz",
     excerpt: "Über die unsichtbaren Fäden zwischen Begegnungen.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/resonanz-warum-menschen-in-unser-leben-treten",
   },
   {
@@ -157,7 +165,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Frequenz",
     excerpt: "Schwingung als Brücke zwischen Innen und Außen.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/die-sprache-der-frequenz",
   },
   {
@@ -166,7 +174,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Erde & Kosmos",
     excerpt: "Der Planet als Bühne des bewussten Erlebens.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/die-erde-als-erfahrungsraum",
   },
   {
@@ -175,7 +183,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Erde & Kosmos",
     excerpt: "Zyklen, Rhythmus und das Spiegelnde im Verborgenen.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/der-mond-und-seine-symbolik",
   },
   {
@@ -184,7 +192,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Grundlagen",
     category: "Erde & Kosmos",
     excerpt: "Eine Betrachtung jenseits von Uhr und Kalender.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/was-ist-zeit",
   },
 
@@ -195,7 +203,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Erinnerung",
     category: "Bewusstsein",
     excerpt: "Vom Schleier, der zwischen uns und dem Wissen liegt.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/warum-vergessen-wir",
   },
   {
@@ -204,7 +212,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Erinnerung",
     category: "Bewusstsein",
     excerpt: "Wie Erinnern zum stillen Wiedererkennen wird.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/erinnerung-und-erwachen",
   },
   {
@@ -213,7 +221,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Erinnerung",
     category: "Symbole",
     excerpt: "Urbilder, die in jedem Menschen wirken.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/archetypen-des-bewusstseins",
   },
   {
@@ -222,7 +230,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Erinnerung",
     category: "Symbole",
     excerpt: "Zeichen, die das Innere direkt berühren.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/symbole-als-sprache",
   },
   {
@@ -231,7 +239,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Erinnerung",
     category: "Bewusstsein",
     excerpt: "Im Schweigen wird das Innere wieder hörbar.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/die-kraft-der-stille",
   },
 
@@ -242,7 +250,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Erweiterte Räume",
     category: "Astralreisen",
     excerpt: "Die nächtliche Sprache des Bewusstseins.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/traeume-verstehen",
   },
   {
@@ -251,7 +259,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Erweiterte Räume",
     category: "Astralreisen",
     excerpt: "Bewusst sein im Traum – wach im Inneren.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/luzides-traeumen",
   },
   {
@@ -260,7 +268,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Erweiterte Räume",
     category: "Astralreisen",
     excerpt: "Bewegung jenseits des Körpers – ruhig und geerdet.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/astralreisen",
   },
   {
@@ -269,7 +277,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Erweiterte Räume",
     category: "Frequenz",
     excerpt: "Bedeutungsvolle Zusammenklänge ohne Zufall.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/synchronizitaeten",
   },
   {
@@ -278,7 +286,7 @@ export const featuredTopics: LibraryTopic[] = [
     cycle: "Erweiterte Räume",
     category: "Bewusstsein",
     excerpt: "Wie Aufmerksamkeit Wirklichkeit gestaltet.",
-    status: "geplant",
+    status: "planned",
     href: "/lichtbibliothek/das-schoepferische-bewusstsein",
   },
 ];
@@ -309,4 +317,16 @@ export const cycleMeta: Record<TopicCycle, { eyebrow: string; note: string }> = 
 /** Themen eines Zyklus in ihrer definierten Reihenfolge. */
 export function topicsByCycle(cycle: TopicCycle): LibraryTopic[] {
   return featuredTopics.filter((topic) => topic.cycle === cycle);
+}
+
+/** Bibliotheks-Thema in die Anzeigeform der Themenkarte überführen. */
+export function toTopicCard(topic: LibraryTopic): TopicCardData {
+  return {
+    title: topic.title,
+    category: topic.category,
+    excerpt: topic.excerpt,
+    status: topicStatusLabel[topic.status],
+    href: topic.href,
+    published: topic.status === "published",
+  };
 }
