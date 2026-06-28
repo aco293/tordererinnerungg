@@ -23,7 +23,9 @@ Entscheidung – technisch wie inhaltlich.
 
 5. **Erinnerung statt Datenanhäufung**
    Es geht nicht um das Sammeln von möglichst vielen Daten, sondern um das
-   Bewahren dessen, was bedeutsam ist.
+   Bewahren dessen, was bedeutsam ist. Luminalis soll Erkenntnisse nicht
+   erzwingen. Erkenntnisse gehören dem Nutzer; sie sind bewahrte
+   Selbstwahrnehmung, keine endgültige Wahrheit über den Menschen.
 
 6. **Resonanz als Mustererkennung**
    Wiederkehrende Themen werden behutsam sichtbar gemacht – als Einladung zur

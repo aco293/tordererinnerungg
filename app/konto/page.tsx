@@ -97,6 +97,9 @@ export default async function KontoPage() {
               <Button href="/luminalis/dialog" variant="secondary">
                 Dialograum öffnen
               </Button>
+              <Button href="/luminalis/erkenntnisse" variant="secondary">
+                Erkenntnisse öffnen
+              </Button>
               <Button href="/luminalis/frequenzspiegel" variant="secondary">
                 Frequenzspiegel öffnen
               </Button>

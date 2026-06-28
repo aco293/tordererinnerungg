@@ -7,6 +7,7 @@ import { Section } from "@/components/ui/Section";
 import { LuminalisSubnav } from "@/components/luminalis/LuminalisSubnav";
 import { LUMINALIS_PILLARS } from "@/lib/luminalis/pillars";
 import { getRecentLuminalisEntries } from "@/lib/luminalis/entries";
+import { getLuminalisInsightCounts } from "@/lib/luminalis/insights";
 import { getCurrentUser, getLuminalisProfile } from "@/lib/luminalis/profile";
 import { getResonanceOverview } from "@/lib/luminalis/resonance";
 
@@ -51,9 +52,10 @@ export default async function MeinWegPage() {
     redirect("/luminalis/onboarding");
   }
 
-  const [recentEntries, overview] = await Promise.all([
+  const [recentEntries, overview, insightCounts] = await Promise.all([
     getRecentLuminalisEntries(user.id, 3),
     getResonanceOverview(user.id),
+    getLuminalisInsightCounts(user.id),
   ]);
   const entryCount = overview.totalEntries;
   const selected = new Set(profile.selected_pillars);
@@ -231,6 +233,35 @@ export default async function MeinWegPage() {
           <div className="mt-7">
             <Button href="/luminalis/frequenzspiegel" variant="secondary">
               Frequenzspiegel öffnen
+            </Button>
+          </div>
+        </Card>
+      </div>
+
+      {/* Erkenntnisse-Einstieg */}
+      <div className="mx-auto mt-6 max-w-2xl">
+        <Card glow="violet" className="p-7">
+          <h2 className="font-serif text-2xl font-light text-white">
+            Erkenntnisse
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-slate-300/80">
+            Bewahre, was auf deinem Weg klar geworden ist. Erkenntnisse
+            verdichten deine Weg-Einträge zu bewussten Spuren.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-slate-400/85">
+            {insightCounts.total > 0
+              ? `${insightCounts.total} ${
+                  insightCounts.total === 1 ? "Erkenntnis" : "Erkenntnisse"
+                } gespeichert${
+                  insightCounts.pinned > 0
+                    ? `, davon ${insightCounts.pinned} markiert.`
+                    : "."
+                }`
+              : "Noch keine Erkenntnisse gespeichert."}
+          </p>
+          <div className="mt-7">
+            <Button href="/luminalis/erkenntnisse" variant="secondary">
+              Erkenntnisse öffnen
             </Button>
           </div>
         </Card>

@@ -84,6 +84,17 @@ Schicht der späteren Frequenzintelligenz.
   Bewertung, ohne Diagnose.
 - Alle persönlichen Daten bleiben dem jeweiligen Nutzerkonto zugeordnet (RLS).
 
+## Erkenntnisse V0
+
+- Weg-Einträge sind rohe persönliche Reflexionen.
+- Erkenntnisse sind vom Nutzer selbst bewusst gespeicherte Verdichtungen.
+- Luminalis deutet nicht automatisch.
+- Der Nutzer entscheidet, was bewahrt werden soll.
+- Erkenntnisse können geöffnet, bearbeitet, markiert und gelöscht werden und
+  bleiben mit ihrem Quell-Eintrag verbunden.
+- Erkenntnisse bilden später eine wichtige Grundlage für Erinnerung und
+  Frequenzintelligenz.
+
 ## Leitplanken
 
 Luminalis folgt der [Charta](./CHARTA.md): Der Mensch entscheidet, die KI

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ResonanceCounts } from "@/components/luminalis/resonance/ResonanceCounts";
 import { ResonanceEmptyState } from "@/components/luminalis/resonance/ResonanceEmptyState";
@@ -7,6 +8,7 @@ import { ResonanceSummary } from "@/components/luminalis/resonance/ResonanceSumm
 import { ResonanceTimeline } from "@/components/luminalis/resonance/ResonanceTimeline";
 import { ResonanceTopicCloud } from "@/components/luminalis/resonance/ResonanceTopicCloud";
 import { getRecentLuminalisEntries } from "@/lib/luminalis/entries";
+import { getRecentLuminalisInsights } from "@/lib/luminalis/insights";
 import { getCurrentUser, getLuminalisProfile } from "@/lib/luminalis/profile";
 import { getResonanceOverview } from "@/lib/luminalis/resonance";
 
@@ -49,9 +51,10 @@ export default async function FrequenzspiegelPage() {
     redirect("/luminalis/onboarding");
   }
 
-  const [overview, recentEntries] = await Promise.all([
+  const [overview, recentEntries, recentInsights] = await Promise.all([
     getResonanceOverview(user.id),
     getRecentLuminalisEntries(user.id, 10),
+    getRecentLuminalisInsights(user.id, 3),
   ]);
 
   return (
@@ -78,6 +81,40 @@ export default async function FrequenzspiegelPage() {
           </div>
 
           <ResonanceTopicCloud items={overview.topicCounts.slice(0, 12)} />
+
+          {recentInsights.length > 0 && (
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm">
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="font-serif text-xl font-light text-white">
+                  Verdichtete Erkenntnisse
+                </h3>
+                <Link
+                  href="/luminalis/erkenntnisse"
+                  className="text-xs uppercase tracking-[0.2em] text-gold/70 transition-colors hover:text-gold"
+                >
+                  Alle ansehen
+                </Link>
+              </div>
+              <ul className="mt-4 space-y-3">
+                {recentInsights.map((insight) => (
+                  <li key={insight.id}>
+                    <Link
+                      href={`/luminalis/erkenntnisse/${insight.id}`}
+                      className="block rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 transition-colors hover:border-white/20"
+                    >
+                      <span className="block text-sm text-white">
+                        {insight.title?.trim() || "Unbenannte Erkenntnis"}
+                      </span>
+                      <span className="mt-1 block text-xs leading-relaxed text-slate-400">
+                        {insight.insight.trim().slice(0, 120)}
+                        {insight.insight.trim().length > 120 ? " …" : ""}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <ResonanceTimeline entries={recentEntries} />
         </div>

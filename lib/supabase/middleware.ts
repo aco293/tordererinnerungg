@@ -19,6 +19,7 @@ export const PROTECTED_PREFIXES = [
   "/luminalis/onboarding",
   "/luminalis/dialog",
   "/luminalis/frequenzspiegel",
+  "/luminalis/erkenntnisse",
 ];
 
 function isProtectedPath(pathname: string): boolean {

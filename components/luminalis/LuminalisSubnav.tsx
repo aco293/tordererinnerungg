@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const items = [
   { label: "Mein Weg", href: "/luminalis/mein-weg" },
   { label: "Dialograum", href: "/luminalis/dialog" },
+  { label: "Erkenntnisse", href: "/luminalis/erkenntnisse" },
   { label: "Frequenzspiegel", href: "/luminalis/frequenzspiegel" },
   { label: "Ausrichtung bearbeiten", href: "/luminalis/onboarding" },
 ];
