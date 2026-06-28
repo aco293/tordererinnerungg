@@ -28,4 +28,5 @@ export const mainNav: NavItem[] = [
 export const footerNav: NavItem[] = [
   { label: "Startseite", href: "/" },
   ...mainNav,
+  { label: "Datenschutz", href: "/datenschutz" },
 ];
