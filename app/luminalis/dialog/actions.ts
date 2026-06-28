@@ -82,3 +82,23 @@ export async function deleteDialogEntry(formData: FormData) {
     revalidatePath("/luminalis/dialog");
   }
 }
+
+/** Löschen von der Detailseite aus – danach zurück in den Dialograum. */
+export async function deleteEntryAction(formData: FormData) {
+  if (!configured()) {
+    redirect("/anmelden");
+  }
+
+  const user = await getCurrentUser();
+  if (!user) {
+    redirect("/anmelden?weiter=/luminalis/dialog");
+  }
+
+  const entryId = String(formData.get("entry_id") ?? "").trim();
+  if (entryId) {
+    await deleteLuminalisEntry(user.id, entryId);
+  }
+
+  revalidatePath("/luminalis/dialog");
+  redirect("/luminalis/dialog");
+}

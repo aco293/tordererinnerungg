@@ -81,6 +81,16 @@ export default function DatenschutzPage() {
                   Sie werden ausschließlich im jeweiligen Nutzerkonto angezeigt.
                 </li>
                 <li>
+                  Nutzer können persönliche Weg-Einträge jederzeit bearbeiten und
+                  löschen.
+                </li>
+                <li>
+                  Gelöschte Einträge werden aus dem persönlichen
+                  Luminalis-Bereich entfernt. Es können weiterhin technische
+                  Backups beim Anbieter bestehen; die endgültige rechtliche
+                  Formulierung folgt später.
+                </li>
+                <li>
                   Auch hierfür gilt: Vor Veröffentlichung wird der Text rechtlich
                   geprüft und vollständig ausgearbeitet.
                 </li>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { deleteDialogEntry } from "@/app/luminalis/dialog/actions";
 import type { LuminalisEntry } from "@/lib/luminalis/entries";
 
@@ -18,13 +19,18 @@ function excerpt(text: string, max = 180): string {
   return clean.length > max ? `${clean.slice(0, max).trimEnd()} …` : clean;
 }
 
-export function RecentEntries({ entries }: { entries: LuminalisEntry[] }) {
+export function RecentEntries({
+  entries,
+  emptyMessage = "Noch keine Einträge. Dein erster Eintrag beginnt deinen Weg im Dialograum.",
+}: {
+  entries: LuminalisEntry[];
+  emptyMessage?: string;
+}) {
   if (entries.length === 0) {
     return (
       <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-center">
         <p className="text-sm leading-relaxed text-slate-400/85">
-          Noch keine Einträge. Dein erster Eintrag beginnt deinen Weg im
-          Dialograum.
+          {emptyMessage}
         </p>
       </div>
     );
@@ -35,7 +41,7 @@ export function RecentEntries({ entries }: { entries: LuminalisEntry[] }) {
       {entries.map((entry) => (
         <li
           key={entry.id}
-          className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm"
+          className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/20"
         >
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.2em] text-slate-400">
             <span>{formatDate(entry.created_at)}</span>
@@ -57,8 +63,13 @@ export function RecentEntries({ entries }: { entries: LuminalisEntry[] }) {
             )}
           </div>
 
-          <h3 className="mt-3 font-serif text-xl font-light text-white">
-            {entry.title?.trim() || "Unbenannter Eintrag"}
+          <h3 className="mt-3 font-serif text-xl font-light">
+            <Link
+              href={`/luminalis/dialog/${entry.id}`}
+              className="text-white transition-colors hover:text-gold-soft"
+            >
+              {entry.title?.trim() || "Unbenannter Eintrag"}
+            </Link>
           </h3>
 
           <p className="mt-2 text-sm leading-relaxed text-slate-300/80">
@@ -78,15 +89,23 @@ export function RecentEntries({ entries }: { entries: LuminalisEntry[] }) {
             </ul>
           )}
 
-          <form action={deleteDialogEntry} className="mt-5">
-            <input type="hidden" name="entry_id" value={entry.id} />
-            <button
-              type="submit"
-              className="text-xs uppercase tracking-[0.2em] text-slate-500 transition-colors hover:text-rose-300/80"
+          <div className="mt-5 flex items-center gap-4">
+            <Link
+              href={`/luminalis/dialog/${entry.id}`}
+              className="text-xs uppercase tracking-[0.2em] text-gold/70 transition-colors hover:text-gold"
             >
-              Eintrag löschen
-            </button>
-          </form>
+              Eintrag öffnen
+            </Link>
+            <form action={deleteDialogEntry}>
+              <input type="hidden" name="entry_id" value={entry.id} />
+              <button
+                type="submit"
+                className="text-xs uppercase tracking-[0.2em] text-slate-500 transition-colors hover:text-rose-300/80"
+              >
+                Löschen
+              </button>
+            </form>
+          </div>
         </li>
       ))}
     </ul>

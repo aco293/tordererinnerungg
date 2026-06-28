@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { DialogEntryForm } from "@/components/luminalis/dialog/DialogEntryForm";
+import { DialogFilters } from "@/components/luminalis/dialog/DialogFilters";
 import { DialogShell } from "@/components/luminalis/dialog/DialogShell";
 import { RecentEntries } from "@/components/luminalis/dialog/RecentEntries";
-import { getRecentLuminalisEntries } from "@/lib/luminalis/entries";
+import { getLuminalisEntriesFiltered } from "@/lib/luminalis/entries";
 import { getCurrentUser, getLuminalisProfile } from "@/lib/luminalis/profile";
 import { createDialogEntry } from "./actions";
+
+type SearchParams = {
+  pillar?: string;
+  mode?: string;
+  topic?: string;
+  search?: string;
+};
 
 export const metadata: Metadata = {
   title: "Dialograum",
@@ -18,7 +26,11 @@ const SUBTITLE =
 const INTRO =
   "Luminalis antwortet hier noch nicht als KI. Dieser Raum sammelt deine eigenen Worte, damit Verbindung, Erinnerung und Resonanz mit der Zeit sichtbar werden können.";
 
-export default async function DialogPage() {
+export default async function DialogPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
   // Ohne Supabase-Konfiguration: ruhige Hinweisseite, kein Crash.
   if (
     !process.env.NEXT_PUBLIC_SUPABASE_URL ||
@@ -46,7 +58,21 @@ export default async function DialogPage() {
     redirect("/luminalis/onboarding");
   }
 
-  const entries = await getRecentLuminalisEntries(user.id, 10);
+  const params = await searchParams;
+  const filters = {
+    pillar: params.pillar?.trim() || undefined,
+    mode: params.mode?.trim() || undefined,
+    topic: params.topic?.trim() || undefined,
+    search: params.search?.trim() || undefined,
+  };
+  const hasFilters = Boolean(
+    filters.pillar || filters.mode || filters.topic || filters.search,
+  );
+
+  const entries = await getLuminalisEntriesFiltered(user.id, {
+    ...filters,
+    limit: 20,
+  });
 
   return (
     <DialogShell title="Dialograum" subtitle={SUBTITLE} intro={INTRO}>
@@ -56,8 +82,20 @@ export default async function DialogPage() {
         <h2 className="font-serif text-2xl font-light text-white">
           Letzte Weg-Einträge
         </h2>
+
         <div className="mt-6">
-          <RecentEntries entries={entries} />
+          <DialogFilters values={filters} />
+        </div>
+
+        <div className="mt-6">
+          <RecentEntries
+            entries={entries}
+            emptyMessage={
+              hasFilters
+                ? "Keine Einträge passen zu diesem Filter. Passe die Auswahl an oder setze die Filter zurück."
+                : "Noch keine Einträge. Dein erster Eintrag beginnt deinen Weg im Dialograum."
+            }
+          />
         </div>
       </div>
     </DialogShell>

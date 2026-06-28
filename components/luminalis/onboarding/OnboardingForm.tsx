@@ -18,21 +18,25 @@ type OnboardingFormProps = {
   defaults?: LuminalisProfile | null;
 };
 
-function SubmitButton() {
+function SubmitButton({ isEditing }: { isEditing: boolean }) {
   const { pending } = useFormStatus();
+  const label = isEditing
+    ? "Ausrichtung aktualisieren"
+    : "Meine Ausrichtung speichern";
   return (
     <button
       type="submit"
       disabled={pending}
       className={`${buttonBase} ${buttonVariants.primary} w-full disabled:cursor-not-allowed disabled:opacity-60`}
     >
-      {pending ? "Wird gespeichert …" : "Meine Ausrichtung speichern"}
+      {pending ? "Wird gespeichert …" : label}
     </button>
   );
 }
 
 export function OnboardingForm({ action, defaults }: OnboardingFormProps) {
   const selected = new Set(defaults?.selected_pillars ?? []);
+  const isEditing = Boolean(defaults);
   const [state, formAction] = useActionState(action, onboardingInitialState);
 
   return (
@@ -148,7 +152,7 @@ export function OnboardingForm({ action, defaults }: OnboardingFormProps) {
         </p>
       )}
 
-      <SubmitButton />
+      <SubmitButton isEditing={isEditing} />
     </form>
   );
 }

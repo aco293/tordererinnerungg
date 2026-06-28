@@ -11,8 +11,10 @@ export const metadata: Metadata = {
     "Der behutsame Beginn deines persönlichen Weges mit Luminalis.",
 };
 
-const SUBTITLE =
+const SUBTITLE_NEW =
   "Luminalis beginnt nicht mit Antworten. Luminalis beginnt damit, deinen aktuellen Weg behutsam wahrzunehmen.";
+const SUBTITLE_EDIT =
+  "Aktualisiere, was sich in dir verändert hat. Luminalis nimmt deinen aktuellen Weg behutsam wahr.";
 
 export default async function OnboardingPage() {
   // Ohne Supabase-Konfiguration: ruhige Hinweisseite, kein Crash.
@@ -21,7 +23,7 @@ export default async function OnboardingPage() {
     !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   ) {
     return (
-      <OnboardingShell title="Erste Ausrichtung" subtitle={SUBTITLE}>
+      <OnboardingShell title="Erste Ausrichtung" subtitle={SUBTITLE_NEW}>
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-7 text-center backdrop-blur-sm">
           <p className="text-base leading-relaxed text-slate-300/85">
             Der persönliche Bereich wird gerade vorbereitet und ist noch nicht
@@ -38,9 +40,13 @@ export default async function OnboardingPage() {
   }
 
   const existing = await getLuminalisProfile(user.id);
+  const isEditing = Boolean(existing);
 
   return (
-    <OnboardingShell title="Erste Ausrichtung" subtitle={SUBTITLE}>
+    <OnboardingShell
+      title={isEditing ? "Deine Ausrichtung" : "Erste Ausrichtung"}
+      subtitle={isEditing ? SUBTITLE_EDIT : SUBTITLE_NEW}
+    >
       <OnboardingForm action={saveOnboarding} defaults={existing} />
     </OnboardingShell>
   );

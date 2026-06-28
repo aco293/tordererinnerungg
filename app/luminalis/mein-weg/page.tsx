@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -76,8 +77,62 @@ export default async function MeinWegPage() {
         </p>
       </div>
 
+      {/* Überblick über die Weg-Einträge */}
+      <div className="mx-auto mt-12 max-w-2xl">
+        {entryCount > 0 ? (
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm">
+            <div className="grid gap-3 sm:grid-cols-3">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                  Einträge
+                </p>
+                <p className="mt-1 font-serif text-xl font-light text-white">
+                  {entryCount}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                  Häufigste Säule
+                </p>
+                <p className="mt-1 font-serif text-xl font-light text-white">
+                  {overview.activePillar ?? "–"}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                  Letzter Eintrag
+                </p>
+                <p className="mt-1 font-serif text-xl font-light text-white">
+                  {overview.lastEntryAt ? formatDate(overview.lastEntryAt) : "–"}
+                </p>
+              </div>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-4 text-sm">
+              <Link
+                href="/luminalis/dialog"
+                className="text-gold/80 transition-colors hover:text-gold"
+              >
+                Zum Dialograum →
+              </Link>
+              <Link
+                href="/luminalis/frequenzspiegel"
+                className="text-gold/80 transition-colors hover:text-gold"
+              >
+                Zum Frequenzspiegel →
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-gold/20 bg-gold/[0.04] p-6 text-center backdrop-blur-sm">
+            <p className="text-base leading-relaxed text-slate-300/85">
+              Beginne im Dialograum mit deinem ersten Weg-Eintrag.
+            </p>
+          </div>
+        )}
+      </div>
+
       {/* Persönliche Ausrichtung */}
-      <div className="mx-auto mt-12 max-w-2xl space-y-5">
+      <div className="mx-auto mt-8 max-w-2xl space-y-5">
         {profile.guiding_question && (
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm">
             <p className="text-xs uppercase tracking-[0.2em] text-slate-400">

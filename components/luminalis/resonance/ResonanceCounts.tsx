@@ -1,9 +1,12 @@
+import Link from "next/link";
 import type { ResonanceCount } from "@/lib/luminalis/resonance";
 
 type ResonanceCountsProps = {
   title: string;
   description?: string;
   items: ResonanceCount[];
+  /** Wenn gesetzt, verlinken die Labels auf den Dialograum-Filter. */
+  linkParam?: "pillar" | "mode";
 };
 
 /** Ruhige Zählliste mit einfachen Balken – ohne Diagramm-Bibliothek. */
@@ -11,6 +14,7 @@ export function ResonanceCounts({
   title,
   description,
   items,
+  linkParam,
 }: ResonanceCountsProps) {
   const max = items.reduce((acc, item) => Math.max(acc, item.count), 1);
 
@@ -30,7 +34,16 @@ export function ResonanceCounts({
           {items.map((item) => (
             <li key={item.label}>
               <div className="flex items-center justify-between gap-3 text-sm">
-                <span className="text-slate-200">{item.label}</span>
+                {linkParam ? (
+                  <Link
+                    href={`/luminalis/dialog?${linkParam}=${encodeURIComponent(item.label)}`}
+                    className="text-slate-200 transition-colors hover:text-gold-soft"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <span className="text-slate-200">{item.label}</span>
+                )}
                 <span className="text-slate-400">{item.count}</span>
               </div>
               <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/5">

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { LuminalisEntry } from "@/lib/luminalis/entries";
 
 function formatDate(iso: string): string {
@@ -40,7 +41,12 @@ export function ResonanceTimeline({
                   <span aria-hidden className="text-gold/40">
                     •
                   </span>
-                  <span className="text-violet-soft/80">{entry.pillar}</span>
+                  <Link
+                    href={`/luminalis/dialog?pillar=${encodeURIComponent(entry.pillar)}`}
+                    className="text-violet-soft/80 transition-colors hover:text-violet-soft"
+                  >
+                    {entry.pillar}
+                  </Link>
                 </>
               )}
               {entry.mode && (
@@ -48,12 +54,22 @@ export function ResonanceTimeline({
                   <span aria-hidden className="text-gold/40">
                     •
                   </span>
-                  <span>{entry.mode}</span>
+                  <Link
+                    href={`/luminalis/dialog?mode=${encodeURIComponent(entry.mode)}`}
+                    className="transition-colors hover:text-white"
+                  >
+                    {entry.mode}
+                  </Link>
                 </>
               )}
             </div>
-            <p className="mt-2 font-serif text-lg font-light text-white">
-              {entry.title?.trim() || "Unbenannter Eintrag"}
+            <p className="mt-2 font-serif text-lg font-light">
+              <Link
+                href={`/luminalis/dialog/${entry.id}`}
+                className="text-white transition-colors hover:text-gold-soft"
+              >
+                {entry.title?.trim() || "Unbenannter Eintrag"}
+              </Link>
             </p>
             <p className="mt-1 text-sm leading-relaxed text-slate-300/80">
               {excerpt(entry.content)}

@@ -65,11 +65,13 @@ export default async function FrequenzspiegelPage() {
               title="Säulen"
               description="Welche Säulen deine Einträge berühren."
               items={overview.pillarCounts}
+              linkParam="pillar"
             />
             <ResonanceCounts
               title="Modi"
               description="In welchen Modi du geschrieben hast."
               items={overview.modeCounts}
+              linkParam="mode"
             />
           </div>
 

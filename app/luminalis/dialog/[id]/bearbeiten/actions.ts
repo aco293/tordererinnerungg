@@ -1,0 +1,70 @@
+"use server";
+
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { updateLuminalisEntry } from "@/lib/luminalis/entries";
+import { getCurrentUser } from "@/lib/luminalis/profile";
+
+export type EditEntryState = { error: string | null };
+
+function configured(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
+}
+
+function parseList(value: FormDataEntryValue | null): string[] {
+  return String(value ?? "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+}
+
+export async function updateEntryAction(
+  _prevState: EditEntryState,
+  formData: FormData,
+): Promise<EditEntryState> {
+  if (!configured()) {
+    redirect("/anmelden");
+  }
+
+  const user = await getCurrentUser();
+  if (!user) {
+    redirect("/anmelden?weiter=/luminalis/dialog");
+  }
+
+  const entryId = String(formData.get("entry_id") ?? "").trim();
+  if (!entryId) {
+    return { error: "Der Eintrag konnte nicht gefunden werden." };
+  }
+
+  const content = String(formData.get("content") ?? "").trim();
+  if (!content) {
+    return { error: "Bitte schreibe ein paar Worte, bevor du speicherst." };
+  }
+
+  const title = String(formData.get("title") ?? "").trim();
+  const mode = String(formData.get("mode") ?? "").trim();
+  const pillar = String(formData.get("pillar") ?? "").trim();
+
+  const { error } = await updateLuminalisEntry(user.id, entryId, {
+    entry_type: "dialog",
+    mode: mode || null,
+    pillar: pillar || null,
+    title: title || null,
+    content,
+    resonance_topics: parseList(formData.get("resonance_topics")),
+  });
+
+  if (error) {
+    return {
+      error:
+        "Der Eintrag konnte nicht aktualisiert werden. Bitte versuche es erneut.",
+    };
+  }
+
+  revalidatePath(`/luminalis/dialog/${entryId}`);
+  revalidatePath("/luminalis/dialog");
+  redirect(`/luminalis/dialog/${entryId}`);
+}

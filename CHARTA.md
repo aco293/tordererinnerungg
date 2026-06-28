@@ -15,6 +15,7 @@ Entscheidung – technisch wie inhaltlich.
 
 3. **Klarheit vor Komplexität**
    Lieber wenige, klare Funktionen als ein überladenes System. Ruhe statt Lärm.
+   Luminalis soll keine Abhängigkeit erzeugen, sondern Selbstwahrnehmung stärken.
 
 4. **Verbindung statt Fragmentierung**
    Inhalte, Erkenntnisse und Werkzeuge fügen sich zu einem Ganzen – sie zerfasern
@@ -43,6 +44,8 @@ Entscheidung – technisch wie inhaltlich.
    verarbeitet und transparent behandelt. Persönliche Einträge gehören dem
    Nutzer; Luminalis leitet daraus keine endgültigen Aussagen über den Menschen
    ab. Muster werden später nur als Einladung gespiegelt, nicht als Urteil.
+   Persönliche Einträge müssen für Nutzer nachvollziehbar, bearbeitbar und
+   löschbar sein.
 
 10. **Erweiterbarkeit**
     Die Architektur bleibt offen, damit Luminalis behutsam und sauber wachsen
