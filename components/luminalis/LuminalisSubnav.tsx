@@ -7,7 +7,10 @@ const items = [
   { label: "Mein Weg", href: "/luminalis/mein-weg" },
   { label: "Dialograum", href: "/luminalis/dialog" },
   { label: "Erkenntnisse", href: "/luminalis/erkenntnisse" },
+  { label: "Integration", href: "/luminalis/integration" },
   { label: "Frequenzspiegel", href: "/luminalis/frequenzspiegel" },
+  { label: "Frequenzintelligenz", href: "/luminalis/frequenzintelligenz" },
+  { label: "KI-Dialog", href: "/luminalis/chat" },
   { label: "Ausrichtung bearbeiten", href: "/luminalis/onboarding" },
 ];
 

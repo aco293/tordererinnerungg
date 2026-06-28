@@ -100,8 +100,17 @@ export default async function KontoPage() {
               <Button href="/luminalis/erkenntnisse" variant="secondary">
                 Erkenntnisse öffnen
               </Button>
+              <Button href="/luminalis/integration" variant="secondary">
+                Integration öffnen
+              </Button>
               <Button href="/luminalis/frequenzspiegel" variant="secondary">
                 Frequenzspiegel öffnen
+              </Button>
+              <Button href="/luminalis/frequenzintelligenz" variant="secondary">
+                Frequenzintelligenz öffnen
+              </Button>
+              <Button href="/luminalis/chat" variant="secondary">
+                KI-Dialog öffnen
               </Button>
               <Button href="/luminalis/onboarding" variant="secondary">
                 Ausrichtung bearbeiten

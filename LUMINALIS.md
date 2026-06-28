@@ -107,6 +107,39 @@ Schicht der späteren Frequenzintelligenz.
 - Keine Pflicht.
 - Keine Produktivitätslogik.
 
+## KI-Dialog V0
+
+Der KI-Dialog (`/luminalis/chat`) ist **kein normaler Chatbot**.
+
+- Er ist ein persönlicher Begleiter im Luminalis-System.
+- Er kann Profil, Weg-Einträge, Erkenntnisse, Integrationen und Frequenzmuster
+  einbeziehen.
+- Er soll spiegeln, verbinden, erinnern und Fragen stellen.
+- Er darf keine Diagnosen stellen.
+- Er darf keine endgültigen Aussagen über den Nutzer machen.
+- Er ersetzt keine Therapie oder professionelle Hilfe.
+
+Technisch: Der KI-Provider ist serverseitig gekapselt (`lib/luminalis/ai/`).
+Schlüssel werden nie clientseitig verwendet, nie geloggt und nie als rohe
+Provider-Fehler im UI gezeigt. Ist `AI_ENABLED` nicht `true` oder fehlt ein
+Schlüssel bzw. Modell, zeigt der Dialog einen ruhigen Aktivierungs-Hinweis,
+ohne die App zu beeinträchtigen.
+
+## Frequenzintelligenz V0
+
+Die Frequenzintelligenz (`/luminalis/frequenzintelligenz`) ist die
+**KI-gestützte Reflexionsschicht**.
+
+- Sie baut auf Dialograum, Erkenntnissen, Integration und Frequenzspiegel auf.
+- Sie erzeugt vorsichtige Reflexionen aus den eigenen Daten des Nutzers.
+- Sie soll Muster sichtbar machen, aber nicht bewerten.
+- Sie ist eine Einladung zur Selbstwahrnehmung.
+
+Die Reflexion entsteht nur auf ausdrücklichen Wunsch (Button) und wird in
+`luminalis_frequency_reflections` gespeichert. Liegt zu wenig Material vor,
+lädt Luminalis ruhig zum Dialograum ein, statt etwas zu behaupten. Der
+Frequenzspiegel bleibt die einfache, nicht-KI-basierte Musteransicht.
+
 ## Leitplanken
 
 Luminalis folgt der [Charta](./CHARTA.md): Der Mensch entscheidet, die KI

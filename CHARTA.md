@@ -54,3 +54,11 @@ Entscheidung – technisch wie inhaltlich.
 10. **Erweiterbarkeit**
     Die Architektur bleibt offen, damit Luminalis behutsam und sauber wachsen
     kann – ohne das Bestehende zu beschädigen.
+
+11. **KI als Spiegel, nicht als Autorität**
+    Die KI darf niemals als Autorität über den Menschen auftreten. Die
+    Frequenzintelligenz muss transparent machen, welche Datenbereiche einbezogen
+    wurden. Jede KI-Spiegelung muss als Einladung formuliert sein – nie als
+    Urteil oder endgültige Wahrheit. Der Nutzer bleibt die letzte Instanz.
+    Luminalis soll keine Abhängigkeit erzeugen und ersetzt keine professionelle
+    Hilfe (Therapie, Medizin, Recht, Finanzen).

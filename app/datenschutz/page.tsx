@@ -124,6 +124,43 @@ export default function DatenschutzPage() {
               </ul>
             </div>
 
+            <div className="mt-8">
+              <h2 className="font-serif text-xl font-light text-white">
+                KI-Dialog & Frequenzintelligenz
+              </h2>
+              <ul className="mt-4 space-y-3 text-base leading-relaxed text-slate-300/80">
+                <li>
+                  Der KI-Dialog kann persönliche Luminalis-Daten einbeziehen,
+                  z. B. deine Ausrichtung, Weg-Einträge, Erkenntnisse,
+                  Integrationen und Frequenzmuster.
+                </li>
+                <li>
+                  Chatnachrichten werden deinem Nutzerkonto zugeordnet
+                  gespeichert und sind privat.
+                </li>
+                <li>
+                  Frequenzreflexionen werden aus deinen eigenen gespeicherten
+                  Daten erzeugt.
+                </li>
+                <li>
+                  Die KI-gestützten Reflexionen sind keine Diagnosen.
+                </li>
+                <li>
+                  Die KI-gestützten Reflexionen sind keine endgültigen Aussagen
+                  über den Menschen.
+                </li>
+                <li>
+                  Bitte vertraue sensible Notfallinformationen nicht
+                  ausschließlich Luminalis an. Wende dich in akuten Situationen
+                  an professionelle Hilfe und Menschen in deinem echten Leben.
+                </li>
+                <li>
+                  Die rechtliche Prüfung erfolgt vor einer öffentlichen
+                  Veröffentlichung.
+                </li>
+              </ul>
+            </div>
+
             <p className="mt-8 text-sm leading-relaxed text-slate-400/80">
               Hinweis: Dieser Text ist ein vorläufiger Entwurf und stellt noch
               keine abschließende Datenschutzerklärung dar.

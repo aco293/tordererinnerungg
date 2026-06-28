@@ -8,6 +8,7 @@ import { LuminalisSubnav } from "@/components/luminalis/LuminalisSubnav";
 import { LUMINALIS_PILLARS } from "@/lib/luminalis/pillars";
 import { getRecentLuminalisEntries } from "@/lib/luminalis/entries";
 import { getLuminalisInsightCounts } from "@/lib/luminalis/insights";
+import { getLuminalisIntegrationCounts } from "@/lib/luminalis/integrations";
 import { getCurrentUser, getLuminalisProfile } from "@/lib/luminalis/profile";
 import { getResonanceOverview } from "@/lib/luminalis/resonance";
 
@@ -52,11 +53,13 @@ export default async function MeinWegPage() {
     redirect("/luminalis/onboarding");
   }
 
-  const [recentEntries, overview, insightCounts] = await Promise.all([
-    getRecentLuminalisEntries(user.id, 3),
-    getResonanceOverview(user.id),
-    getLuminalisInsightCounts(user.id),
-  ]);
+  const [recentEntries, overview, insightCounts, integrationCounts] =
+    await Promise.all([
+      getRecentLuminalisEntries(user.id, 3),
+      getResonanceOverview(user.id),
+      getLuminalisInsightCounts(user.id),
+      getLuminalisIntegrationCounts(user.id),
+    ]);
   const entryCount = overview.totalEntries;
   const selected = new Set(profile.selected_pillars);
   const greetingName = profile.display_name?.trim();
@@ -262,6 +265,71 @@ export default async function MeinWegPage() {
           <div className="mt-7">
             <Button href="/luminalis/erkenntnisse" variant="secondary">
               Erkenntnisse öffnen
+            </Button>
+          </div>
+        </Card>
+      </div>
+
+      {/* Integration-Einstieg */}
+      <div className="mx-auto mt-6 max-w-2xl">
+        <Card glow="violet" className="p-7">
+          <h2 className="font-serif text-2xl font-light text-white">
+            Integration
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-slate-300/80">
+            Gib einer Erkenntnis einen kleinen, stimmigen Schritt. Nicht als
+            Pflicht, sondern als Einladung zur Verkörperung.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-slate-400/85">
+            {integrationCounts.total > 0
+              ? `${integrationCounts.total} ${
+                  integrationCounts.total === 1
+                    ? "Integration"
+                    : "Integrationen"
+                } · ${integrationCounts.inMotion} in Bewegung · ${
+                  integrationCounts.integrated
+                } integriert.`
+              : "Noch keine Integration begonnen."}
+          </p>
+          <div className="mt-7">
+            <Button href="/luminalis/integration" variant="secondary">
+              Integration öffnen
+            </Button>
+          </div>
+        </Card>
+      </div>
+
+      {/* KI-Dialog-Einstieg */}
+      <div className="mx-auto mt-6 max-w-2xl">
+        <Card glow="violet" className="p-7">
+          <h2 className="font-serif text-2xl font-light text-white">
+            KI-Dialog
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-slate-300/80">
+            Sprich mit Luminalis über deinen Weg. Der Dialog kann deine eigenen
+            Einträge, Erkenntnisse und Integrationen behutsam einbeziehen.
+          </p>
+          <div className="mt-7">
+            <Button href="/luminalis/chat" variant="secondary">
+              KI-Dialog öffnen
+            </Button>
+          </div>
+        </Card>
+      </div>
+
+      {/* Frequenzintelligenz-Einstieg */}
+      <div className="mx-auto mt-6 max-w-2xl">
+        <Card glow="violet" className="p-7">
+          <h2 className="font-serif text-2xl font-light text-white">
+            Frequenzintelligenz
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-slate-300/80">
+            Lasse dir aus deinen eigenen Wegspuren eine vorsichtige Reflexion
+            erzeugen.
+          </p>
+          <div className="mt-7">
+            <Button href="/luminalis/frequenzintelligenz" variant="secondary">
+              Frequenzintelligenz öffnen
             </Button>
           </div>
         </Card>
