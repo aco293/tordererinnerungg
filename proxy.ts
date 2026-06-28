@@ -1,7 +1,11 @@
 import { type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
-export async function middleware(request: NextRequest) {
+/**
+ * Next.js 16 Proxy (ehemals Middleware). Frischt die Supabase-Session auf und
+ * schützt die Luminalis-Routen. Die Logik liegt in lib/supabase/middleware.ts.
+ */
+export async function proxy(request: NextRequest) {
   return await updateSession(request);
 }
 

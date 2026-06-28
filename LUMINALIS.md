@@ -48,6 +48,19 @@ Ausrichtung, anstatt von außen zu steuern.
 Wie wächst du über die Zeit? Luminalis begleitet Entwicklung als offenen,
 fortlaufenden Prozess – im eigenen Rhythmus.
 
+## Dialograum V0
+
+Der Dialograum (`/luminalis/dialog`) ist **kein KI-Chat**. Er ist der erste Raum
+der Selbstverbindung: Der Mensch hält in eigenen Worten fest, was gerade in ihm
+präsent ist – Modus, berührte Säule, Titel, Inhalt und mitschwingende
+Resonanzthemen.
+
+- Luminalis antwortet hier noch nicht – es hört zu.
+- Nutzer speichern eigene Weg-Einträge; sie bleiben privat und beim Nutzerkonto.
+- Ruhige Reflexionsfragen begleiten, ohne zu bewerten oder zu diagnostizieren.
+- Diese Einträge bilden später die Grundlage für Erinnerung, Resonanz und
+  Frequenzintelligenz.
+
 ## Leitplanken
 
 Luminalis folgt der [Charta](./CHARTA.md): Der Mensch entscheidet, die KI

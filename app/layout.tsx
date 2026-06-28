@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
-import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/lib/content/site";
 import "./globals.css";
-
-const serif = Fraunces({ subsets: ["latin"], variable: "--font-serif", display: "swap" });
-
-const sans = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="de">
       <body className="cosmic-bg font-sans">
         {/* Dekorativer Sternenhimmel */}
         <div

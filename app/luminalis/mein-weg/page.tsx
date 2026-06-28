@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Section } from "@/components/ui/Section";
+import { LuminalisSubnav } from "@/components/luminalis/LuminalisSubnav";
 import { LUMINALIS_PILLARS } from "@/lib/luminalis/pillars";
+import { getRecentLuminalisEntries } from "@/lib/luminalis/entries";
 import { getCurrentUser, getLuminalisProfile } from "@/lib/luminalis/profile";
 
 export const metadata: Metadata = {
@@ -11,8 +14,20 @@ export const metadata: Metadata = {
     "Dein persönlicher Luminalis-Raum für Verbindung, Erinnerung, Resonanz und Ausrichtung.",
 };
 
+function formatDate(iso: string): string {
+  try {
+    return new Intl.DateTimeFormat("de-DE", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }).format(new Date(iso));
+  } catch {
+    return iso;
+  }
+}
+
 export default async function MeinWegPage() {
-  // Schutz auch auf Seitenebene (zusätzlich zur Middleware).
+  // Schutz auch auf Seitenebene (zusätzlich zum Proxy).
   if (
     !process.env.NEXT_PUBLIC_SUPABASE_URL ||
     !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -32,12 +47,17 @@ export default async function MeinWegPage() {
     redirect("/luminalis/onboarding");
   }
 
+  const recentEntries = await getRecentLuminalisEntries(user.id, 3);
   const selected = new Set(profile.selected_pillars);
   const greetingName = profile.display_name?.trim();
 
   return (
     <Section className="pt-24 sm:pt-28">
-      <div className="mx-auto max-w-2xl text-center animate-fade-up">
+      <div className="mx-auto max-w-3xl animate-fade-up">
+        <LuminalisSubnav />
+      </div>
+
+      <div className="mx-auto mt-10 max-w-2xl text-center animate-fade-up">
         <p className="text-xs font-medium uppercase tracking-[0.35em] text-gold/70">
           Luminalis
         </p>
@@ -94,6 +114,41 @@ export default async function MeinWegPage() {
         )}
       </div>
 
+      {/* Dialograum-Einstieg */}
+      <div className="mx-auto mt-8 max-w-2xl">
+        <Card glow="gold" className="p-7">
+          <h2 className="font-serif text-2xl font-light text-white">
+            Dialograum
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-slate-300/80">
+            Halte fest, was in dir präsent ist. Aus diesen Einträgen entsteht
+            später die Grundlage deiner persönlichen Frequenzintelligenz.
+          </p>
+
+          {recentEntries.length > 0 && (
+            <ul className="mt-5 space-y-2 border-t border-white/10 pt-5">
+              {recentEntries.map((entry) => (
+                <li
+                  key={entry.id}
+                  className="flex items-baseline justify-between gap-4 text-sm"
+                >
+                  <span className="truncate text-slate-300/85">
+                    {entry.title?.trim() || "Unbenannter Eintrag"}
+                  </span>
+                  <span className="shrink-0 text-xs uppercase tracking-[0.15em] text-slate-500">
+                    {formatDate(entry.created_at)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div className="mt-7">
+            <Button href="/luminalis/dialog">Dialograum öffnen</Button>
+          </div>
+        </Card>
+      </div>
+
       {/* Die fünf Säulen – gewählte sind hervorgehoben */}
       <ul className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-2">
         {LUMINALIS_PILLARS.map((pillar) => {
@@ -102,9 +157,7 @@ export default async function MeinWegPage() {
             <li key={pillar.id}>
               <Card
                 glow={active ? "gold" : "violet"}
-                className={`p-7 ${
-                  active ? "border-gold/40 bg-gold/[0.04]" : ""
-                }`}
+                className={`p-7 ${active ? "border-gold/40 bg-gold/[0.04]" : ""}`}
               >
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="font-serif text-2xl font-light leading-snug text-white">

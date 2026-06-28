@@ -18,6 +18,8 @@ export function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const confirmFailed = searchParams.get("fehler") === "bestaetigung";
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
@@ -51,6 +53,16 @@ export function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+      {confirmFailed && !error && (
+        <p
+          role="alert"
+          className="rounded-xl border border-rose-400/20 bg-rose-400/[0.06] px-4 py-3 text-sm leading-relaxed text-rose-200/90"
+        >
+          Die E-Mail-Bestätigung konnte nicht abgeschlossen werden. Bitte
+          versuche es erneut oder melde dich an.
+        </p>
+      )}
+
       <div>
         <label htmlFor="email" className={authLabelClass}>
           E-Mail

@@ -6,6 +6,8 @@ import {
   upsertLuminalisProfile,
 } from "@/lib/luminalis/profile";
 
+export type OnboardingState = { error: string | null };
+
 function parseList(value: FormDataEntryValue | null): string[] {
   return String(value ?? "")
     .split(",")
@@ -13,7 +15,10 @@ function parseList(value: FormDataEntryValue | null): string[] {
     .filter(Boolean);
 }
 
-export async function saveOnboarding(formData: FormData) {
+export async function saveOnboarding(
+  _prevState: OnboardingState,
+  formData: FormData,
+): Promise<OnboardingState> {
   if (
     !process.env.NEXT_PUBLIC_SUPABASE_URL ||
     !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -28,7 +33,7 @@ export async function saveOnboarding(formData: FormData) {
 
   const pillars = formData.getAll("pillars").map(String);
 
-  await upsertLuminalisProfile(user.id, {
+  const { error } = await upsertLuminalisProfile(user.id, {
     display_name: String(formData.get("display_name") ?? "").trim(),
     current_focus: String(formData.get("current_focus") ?? "").trim(),
     guiding_question: String(formData.get("guiding_question") ?? "").trim(),
@@ -36,6 +41,13 @@ export async function saveOnboarding(formData: FormData) {
     resonance_topics: parseList(formData.get("resonance_topics")),
     first_intention: String(formData.get("first_intention") ?? "").trim(),
   });
+
+  if (error) {
+    return {
+      error:
+        "Deine Ausrichtung konnte nicht gespeichert werden. Bitte versuche es noch einmal.",
+    };
+  }
 
   redirect("/luminalis/mein-weg");
 }

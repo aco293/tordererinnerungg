@@ -50,6 +50,30 @@ export default function DatenschutzPage() {
               </ul>
             </div>
 
+            <div className="mt-8">
+              <h2 className="font-serif text-xl font-light text-white">
+                Persönliche Weg-Einträge
+              </h2>
+              <ul className="mt-4 space-y-3 text-base leading-relaxed text-slate-300/80">
+                <li>
+                  Luminalis kann persönliche Weg-Einträge speichern, die du im
+                  Dialograum verfasst.
+                </li>
+                <li>
+                  Diese Einträge sind privat und ausschließlich deinem
+                  Nutzerkonto zugeordnet.
+                </li>
+                <li>
+                  Sie dienen später als Grundlage für persönliche Reflexion sowie
+                  mögliche Resonanz- und Erinnerungsfunktionen.
+                </li>
+                <li>
+                  Auch hierfür gilt: Vor Veröffentlichung wird der Text rechtlich
+                  geprüft und vollständig ausgearbeitet.
+                </li>
+              </ul>
+            </div>
+
             <p className="mt-8 text-sm leading-relaxed text-slate-400/80">
               Hinweis: Dieser Text ist ein vorläufiger Entwurf und stellt noch
               keine abschließende Datenschutzerklärung dar.

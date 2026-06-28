@@ -38,7 +38,9 @@ Entscheidung – technisch wie inhaltlich.
 
 9. **Datenschutz**
    Persönliche Daten gehören dem Menschen. Sie werden geschützt, sparsam
-   verarbeitet und transparent behandelt.
+   verarbeitet und transparent behandelt. Persönliche Einträge gehören dem
+   Nutzer; Luminalis leitet daraus keine endgültigen Aussagen über den Menschen
+   ab. Muster werden später nur als Einladung gespiegelt, nicht als Urteil.
 
 10. **Erweiterbarkeit**
     Die Architektur bleibt offen, damit Luminalis behutsam und sauber wachsen

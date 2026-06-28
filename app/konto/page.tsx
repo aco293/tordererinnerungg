@@ -90,8 +90,16 @@ export default async function KontoPage() {
               </div>
             )}
 
-            <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button href="/luminalis/mein-weg">Mein Weg öffnen</Button>
+              <Button href="/luminalis/dialog" variant="secondary">
+                Dialograum öffnen
+              </Button>
+              <Button href="/luminalis/onboarding" variant="secondary">
+                Ausrichtung bearbeiten
+              </Button>
+            </div>
+            <div className="mt-6">
               <LogoutButton />
             </div>
           </div>

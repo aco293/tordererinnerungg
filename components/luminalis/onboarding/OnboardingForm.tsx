@@ -1,13 +1,20 @@
 "use client";
 
+import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { buttonBase, buttonVariants } from "@/components/ui/Button";
 import { authFieldClass, authLabelClass } from "@/components/auth/AuthShell";
 import { LUMINALIS_PILLARS } from "@/lib/luminalis/pillars";
 import type { LuminalisProfile } from "@/lib/luminalis/profile";
+import type { OnboardingState } from "@/app/luminalis/onboarding/actions";
+
+const onboardingInitialState: OnboardingState = { error: null };
 
 type OnboardingFormProps = {
-  action: (formData: FormData) => Promise<void>;
+  action: (
+    prevState: OnboardingState,
+    formData: FormData,
+  ) => Promise<OnboardingState>;
   defaults?: LuminalisProfile | null;
 };
 
@@ -26,9 +33,10 @@ function SubmitButton() {
 
 export function OnboardingForm({ action, defaults }: OnboardingFormProps) {
   const selected = new Set(defaults?.selected_pillars ?? []);
+  const [state, formAction] = useActionState(action, onboardingInitialState);
 
   return (
-    <form action={action} className="space-y-8">
+    <form action={formAction} className="space-y-8">
       <div>
         <label htmlFor="display_name" className={authLabelClass}>
           Wie darf Luminalis dich ansprechen?
@@ -130,6 +138,15 @@ export function OnboardingForm({ action, defaults }: OnboardingFormProps) {
           placeholder="Eine erste Intention für deinen Weg …"
         />
       </div>
+
+      {state.error && (
+        <p
+          role="alert"
+          className="rounded-xl border border-rose-400/20 bg-rose-400/[0.06] px-4 py-3 text-sm leading-relaxed text-rose-200/90"
+        >
+          {state.error}
+        </p>
+      )}
 
       <SubmitButton />
     </form>
