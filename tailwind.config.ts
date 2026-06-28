@@ -27,7 +27,14 @@ const config: Config = {
         gold: {
           DEFAULT: "#e8c17a",
           soft: "#f3d9a4",
+          light: "#fff1c7",
           deep: "#b8893f",
+        },
+        // Helles Akzent-Violett/Blau – lebendiges Licht
+        accent: {
+          DEFAULT: "#7c6dff",
+          soft: "#9a8cff",
+          blue: "#536bff",
         },
       },
       fontFamily: {
@@ -37,6 +44,8 @@ const config: Config = {
       boxShadow: {
         glow: "0 0 40px -10px rgba(111, 111, 214, 0.45)",
         "glow-gold": "0 0 48px -12px rgba(232, 193, 122, 0.4)",
+        "glow-lg": "0 0 80px -16px rgba(124, 109, 255, 0.5)",
+        "glow-gold-lg": "0 0 90px -18px rgba(243, 217, 164, 0.45)",
       },
       backgroundImage: {
         "radial-fade":
@@ -67,6 +76,22 @@ const config: Config = {
           "0%": { transform: "translateY(0) translateX(0)" },
           "100%": { transform: "translateY(-60px) translateX(20px)" },
         },
+        twinkle: {
+          "0%, 100%": { opacity: "0.3" },
+          "50%": { opacity: "0.8" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "aura-pulse": {
+          "0%, 100%": { opacity: "0.45", transform: "scale(1)" },
+          "50%": { opacity: "0.75", transform: "scale(1.06)" },
+        },
       },
       animation: {
         "fade-up": "fade-up 1s ease-out both",
@@ -75,6 +100,10 @@ const config: Config = {
         float: "float 6s ease-in-out infinite",
         "pulse-soft": "pulse-soft 5s ease-in-out infinite",
         "scale-in": "scale-in 0.5s ease-out both",
+        twinkle: "twinkle 4s ease-in-out infinite",
+        shimmer: "shimmer 6s linear infinite",
+        "spin-slow": "spin-slow 60s linear infinite",
+        "aura-pulse": "aura-pulse 9s ease-in-out infinite",
       },
     },
   },

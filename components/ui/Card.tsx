@@ -17,19 +17,27 @@ type CardProps = {
 };
 
 export function Card({ children, href, glow = "violet", className = "" }: CardProps) {
-  const classes = `group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm transition-all duration-500 ${glowRing[glow]} hover:-translate-y-1 ${className}`;
+  const classes = `group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.02] p-7 shadow-[0_8px_40px_-24px_rgba(0,0,0,0.8)] backdrop-blur-sm transition-all duration-500 ${glowRing[glow]} hover:-translate-y-1 ${className}`;
 
-  const aura = (
-    <span
-      aria-hidden
-      className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-violet-glow/10 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
-    />
+  const decor = (
+    <>
+      {/* Feine Lichtkante oben */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"
+      />
+      {/* Weiche Aura beim Hover */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-violet-glow/10 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
+      />
+    </>
   );
 
   if (href) {
     return (
       <Link href={href} className={classes}>
-        {aura}
+        {decor}
         {children}
       </Link>
     );
@@ -37,7 +45,7 @@ export function Card({ children, href, glow = "violet", className = "" }: CardPr
 
   return (
     <div className={classes}>
-      {aura}
+      {decor}
       {children}
     </div>
   );

@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de">
+    <html lang="de" data-scroll-behavior="smooth">
       <body className="cosmic-bg font-sans">
         {/* Dekorativer Sternenhimmel */}
         <div

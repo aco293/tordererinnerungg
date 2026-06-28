@@ -5,7 +5,7 @@ import { FrequencyIntelligenceShell } from "@/components/luminalis/frequency-int
 import { FrequencyReflectionList } from "@/components/luminalis/frequency-intelligence/FrequencyReflectionList";
 import { GenerateReflectionButton } from "@/components/luminalis/frequency-intelligence/GenerateReflectionButton";
 import { getRecentFrequencyReflections } from "@/lib/luminalis/ai/frequencyIntelligence";
-import { isAiConfigured } from "@/lib/luminalis/ai/provider";
+import { getAiConfigStatus } from "@/lib/luminalis/ai/config";
 import { getCurrentUser, getLuminalisProfile } from "@/lib/luminalis/profile";
 
 export const dynamic = "force-dynamic";
@@ -37,14 +37,15 @@ export default async function FrequenzintelligenzPage() {
     redirect("/luminalis/onboarding");
   }
 
-  if (!isAiConfigured()) {
+  const aiStatus = getAiConfigStatus();
+  if (!aiStatus.enabled) {
     return (
       <FrequencyIntelligenceShell
         title="Frequenzintelligenz"
         subtitle={SUBTITLE}
         intro={INTRO}
       >
-        <AiDisabledNotice />
+        <AiDisabledNotice status={aiStatus} />
       </FrequencyIntelligenceShell>
     );
   }

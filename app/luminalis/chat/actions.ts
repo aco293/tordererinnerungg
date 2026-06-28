@@ -8,6 +8,8 @@ import {
   generateAndStoreAssistantMessage,
   updateChatSessionTitle,
 } from "@/lib/luminalis/ai/chat";
+import { getAiConfigStatus } from "@/lib/luminalis/ai/config";
+import { AI_DISABLED_MESSAGE } from "@/lib/luminalis/ai/types";
 import { getCurrentUser } from "@/lib/luminalis/profile";
 
 export type SendMessageState = { error: string | null; sent: number };
@@ -67,6 +69,11 @@ export async function sendMessageAction(
   const user = await getCurrentUser();
   if (!user) {
     redirect("/anmelden?weiter=/luminalis/chat");
+  }
+
+  // Dieselbe AI-Statuslogik wie Page und Provider.
+  if (!getAiConfigStatus().enabled) {
+    return { error: AI_DISABLED_MESSAGE, sent: prevState.sent };
   }
 
   const sessionId = String(formData.get("session_id") ?? "").trim();

@@ -6,7 +6,7 @@ import { ChatShell } from "@/components/luminalis/chat/ChatShell";
 import { ContextNotice } from "@/components/luminalis/chat/ContextNotice";
 import { NewChatButton } from "@/components/luminalis/chat/NewChatButton";
 import { getChatSessions } from "@/lib/luminalis/ai/chat";
-import { isAiConfigured } from "@/lib/luminalis/ai/provider";
+import { getAiConfigStatus } from "@/lib/luminalis/ai/config";
 import { getCurrentUser, getLuminalisProfile } from "@/lib/luminalis/profile";
 
 export const dynamic = "force-dynamic";
@@ -40,10 +40,11 @@ export default async function ChatPage() {
     redirect("/luminalis/onboarding");
   }
 
-  if (!isAiConfigured()) {
+  const aiStatus = getAiConfigStatus();
+  if (!aiStatus.enabled) {
     return (
       <ChatShell title="Luminalis Dialog" subtitle={SUBTITLE} intro={INTRO}>
-        <AiDisabledNotice />
+        <AiDisabledNotice status={aiStatus} />
       </ChatShell>
     );
   }

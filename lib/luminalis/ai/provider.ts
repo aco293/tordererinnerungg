@@ -14,23 +14,16 @@
  * werden, ohne die aufrufenden Stellen zu verändern.
  */
 
-import type {
-  GenerateLuminalisInput,
-  GenerateLuminalisResult,
+import { getAiConfigStatus } from "@/lib/luminalis/ai/config";
+import {
+  AI_DISABLED_MESSAGE,
+  type GenerateLuminalisInput,
+  type GenerateLuminalisResult,
 } from "@/lib/luminalis/ai/types";
-
-/** Ist die KI grundsätzlich freigeschaltet? */
-export function isAiEnabled(): boolean {
-  return process.env.AI_ENABLED === "true";
-}
 
 /** Ist die KI vollständig konfiguriert (aktiviert, Schlüssel, Modell)? */
 export function isAiConfigured(): boolean {
-  return (
-    isAiEnabled() &&
-    Boolean(process.env.OPENAI_API_KEY) &&
-    Boolean(process.env.OPENAI_MODEL)
-  );
+  return getAiConfigStatus().enabled;
 }
 
 const OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
@@ -38,31 +31,25 @@ const OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
 export async function generateLuminalisResponse(
   input: GenerateLuminalisInput,
 ): Promise<GenerateLuminalisResult> {
-  if (!isAiEnabled()) {
+  const status = getAiConfigStatus();
+
+  // Gemeinsame Quelle der Wahrheit: ist die KI nicht vollständig aktiviert,
+  // gibt es keinen API-Aufruf, sondern eine saubere, ruhige Rückgabe.
+  if (!status.enabled) {
     return {
       ok: false,
-      reason: "disabled",
-      message: "Die KI ist derzeit nicht aktiviert.",
+      reason: !status.aiEnabledFlag
+        ? "disabled"
+        : !status.hasApiKey
+          ? "missing_key"
+          : "missing_model",
+      message: AI_DISABLED_MESSAGE,
     };
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    return {
-      ok: false,
-      reason: "missing_key",
-      message: "Es ist kein KI-Schlüssel hinterlegt.",
-    };
-  }
-
-  const model = process.env.OPENAI_MODEL;
-  if (!model) {
-    return {
-      ok: false,
-      reason: "missing_model",
-      message: "Es ist kein KI-Modell hinterlegt.",
-    };
-  }
+  // Schlüssel und Modell erst hier serverseitig aus der Umgebung lesen.
+  const apiKey = process.env.OPENAI_API_KEY!.trim();
+  const model = status.model!;
 
   try {
     const response = await fetch(OPENAI_ENDPOINT, {

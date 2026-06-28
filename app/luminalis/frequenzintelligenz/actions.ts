@@ -2,7 +2,9 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { getAiConfigStatus } from "@/lib/luminalis/ai/config";
 import { generateFrequencyReflection } from "@/lib/luminalis/ai/frequencyIntelligence";
+import { AI_DISABLED_MESSAGE } from "@/lib/luminalis/ai/types";
 import { getCurrentUser } from "@/lib/luminalis/profile";
 
 export type ReflectionActionState = { error: string | null; created: number };
@@ -26,6 +28,11 @@ export async function generateReflectionAction(
   const user = await getCurrentUser();
   if (!user) {
     redirect("/anmelden?weiter=/luminalis/frequenzintelligenz");
+  }
+
+  // Dieselbe AI-Statuslogik wie Page und Provider.
+  if (!getAiConfigStatus().enabled) {
+    return { error: AI_DISABLED_MESSAGE, created: prevState.created };
   }
 
   const result = await generateFrequencyReflection(user.id);

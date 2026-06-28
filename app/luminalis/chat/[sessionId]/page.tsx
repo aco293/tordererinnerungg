@@ -7,7 +7,7 @@ import { ChatWindow } from "@/components/luminalis/chat/ChatWindow";
 import { DeleteChatSessionButton } from "@/components/luminalis/chat/DeleteChatSessionButton";
 import { chatModeLabel } from "@/lib/luminalis/ai/chatModes";
 import { getChatMessages, getChatSessionById } from "@/lib/luminalis/ai/chat";
-import { isAiConfigured } from "@/lib/luminalis/ai/provider";
+import { getAiConfigStatus } from "@/lib/luminalis/ai/config";
 import { getCurrentUser, getLuminalisProfile } from "@/lib/luminalis/profile";
 
 export const dynamic = "force-dynamic";
@@ -44,10 +44,11 @@ export default async function ChatSessionPage({
     redirect("/luminalis/onboarding");
   }
 
-  if (!isAiConfigured()) {
+  const aiStatus = getAiConfigStatus();
+  if (!aiStatus.enabled) {
     return (
       <ChatShell title="Luminalis Dialog" subtitle={SUBTITLE}>
-        <AiDisabledNotice />
+        <AiDisabledNotice status={aiStatus} />
         <div className="mt-8 text-center">
           <Button href="/luminalis/chat" variant="ghost">
             Zurück zur Übersicht

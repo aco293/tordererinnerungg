@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { Section } from "@/components/ui/Section";
+import { getAiConfigStatus } from "@/lib/luminalis/ai/config";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -28,10 +29,9 @@ export default async function SetupCheckPage() {
   const hasKey = Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
   const configured = hasUrl && hasKey;
 
-  // KI-Konfiguration: nur Ja/Nein – niemals Schlüssel oder Werte anzeigen.
-  const aiEnabled = process.env.AI_ENABLED === "true";
-  const hasOpenAiKey = Boolean(process.env.OPENAI_API_KEY);
-  const hasOpenAiModel = Boolean(process.env.OPENAI_MODEL);
+  // KI-Konfiguration über die zentrale Quelle der Wahrheit – exakt dieselbe
+  // Logik wie Chat/Frequenzintelligenz. Nur Ja/Nein, niemals Schlüssel/Werte.
+  const ai = getAiConfigStatus();
 
   let userPresent = false;
   let profilesOk = false;
@@ -80,9 +80,10 @@ export default async function SetupCheckPage() {
     { label: "Tabelle luminalis_entries erreichbar", ok: entriesOk },
     { label: "Tabelle luminalis_insights erreichbar", ok: insightsOk },
     { label: "Tabelle luminalis_integrations erreichbar", ok: integrationsOk },
-    { label: "AI_ENABLED true", ok: aiEnabled },
-    { label: "OPENAI_API_KEY gesetzt", ok: hasOpenAiKey },
-    { label: "OPENAI_MODEL gesetzt", ok: hasOpenAiModel },
+    { label: "AI_ENABLED true", ok: ai.aiEnabledFlag },
+    { label: "OPENAI_API_KEY gesetzt", ok: ai.hasApiKey },
+    { label: "OPENAI_MODEL gesetzt", ok: ai.hasModel },
+    { label: "KI vollständig aktiviert", ok: ai.enabled },
     {
       label: "Tabelle luminalis_chat_sessions erreichbar",
       ok: chatSessionsOk,

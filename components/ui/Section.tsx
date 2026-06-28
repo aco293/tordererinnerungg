@@ -20,7 +20,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`relative py-24 sm:py-28 ${className}`}
+      className={`relative py-20 sm:py-24 ${className}`}
       {...aria}
     >
       {bare ? (

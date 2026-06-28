@@ -23,10 +23,10 @@ export const homeHero = {
 
 export const homeIntro = {
   eyebrow: "Kein gewöhnlicher Ort",
-  title: "Ein Weg der Erinnerung",
+  title: "Du befindest dich am Tor der Erinnerung",
   paragraphs: [
-    "Diese Seite ist kein gewöhnlicher Blog und keine Sammlung von Informationen. Sie ist ein Weg – ein stiller Pfad zurück zu dem, was in dir bereits gewusst wird.",
-    "Hier geht es nicht um neues Wissen, sondern um Erinnerung. Um das ruhige Wiedererkennen dessen, was unter dem Lärm des Alltags verborgen liegt.",
+    "Diese Seite ist kein gewöhnlicher Blog, kein Kurs und keine Sammlung von Informationen. Sie ist ein stiller Raum für Bewusstsein, Frequenz und innere Rückverbindung.",
+    "Alles hier ist darauf ausgerichtet, dich nicht mit mehr Lärm zu füllen, sondern dich zurück zu dem zu führen, was in dir bereits weiß.",
   ],
 } as const;
 
